@@ -18,13 +18,13 @@ public class Email {
 
     private String ID;
     private Utente sender;
-    private Utente receiver;
-    private String argument;
-    private String text;
+    private SimpleStringProperty receiver = null;
+    private SimpleStringProperty argument = null ;
+    private SimpleStringProperty text = null;
     //private DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     private String date;
 
-    public Email(String ID, Utente sender, Utente receiver){
+    public Email(String ID, Utente sender){
 
         this.ID = ID;
 
@@ -39,7 +39,23 @@ public class Email {
         * */
 
         this.sender = sender;
-        this.receiver = receiver;
+    }
 
+    public boolean sendEmail(String text, String argument){
+
+
+        return true;
+    }
+
+    /*
+     * we are going to ask the server to
+     * look in its "database"(wich is going to be a json file),
+     * if the sender is among the list of its avalible user
+     * @param receiver the object of the receiver
+     * @return boolean true if the receiver is found
+     * */
+    public boolean search(Utente receiver){
+
+        return true;
     }
 }
