@@ -1,5 +1,30 @@
 #left_menu{
 
    -fx-background-color: rgb(63,51,98);
+}
+#logo{
+
+    -fx-start-margin: 0;
+    -fx-background-image: url("img/unito-logo.png");
+    -fx-background-size: cover;
+}
+
+.menu_options{
+
+    -fx-background-color:  rgb(63,51,98);
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+
+    -fx-font-size: 30px;
+    -fx-font-family: "Helvetica Neue";
+    -fx-font-weight: bold;
+}
+#inbox_button:hover{
+
+    -fx-text-fill: white;
+}
+
+#icon{
+
 
 }
