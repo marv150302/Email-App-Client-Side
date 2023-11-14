@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Creazione Progetto">
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/Utente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Aggiornamento classe Email.java">
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Email.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1699954885829</updated>
       <workItem from="1699954887320" duration="1205000" />
-      <workItem from="1699956182261" duration="1900000" />
+      <workItem from="1699956182261" duration="2049000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -71,7 +69,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699955948764</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Aggiornamento classe Email.java">
+      <option name="closed" value="true" />
+      <created>1699958133161</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699958133162</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,6 +85,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creazione Progetto" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creazione Progetto" />
+    <MESSAGE value="Aggiornamento classe Email.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggiornamento classe Email.java" />
   </component>
 </project>
