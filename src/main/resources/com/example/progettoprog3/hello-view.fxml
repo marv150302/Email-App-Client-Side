@@ -15,6 +15,7 @@
    </stylesheets>
 
 
+   <!--Left Side Menu-->
    <VBox fx:id="left_menu" prefHeight="584.0" prefWidth="279.0">
       <children>
          <Button fx:id="inbox_button" graphicTextGap="20.0" layoutY="500.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="279.0" text="Inbox">
@@ -33,19 +34,25 @@
             </font></Button>
       </children>
    </VBox>
+
+   <!--New Email Button-->
    <Button fx:id="new_email_button" layoutX="787.0" layoutY="525.0" mnemonicParsing="false" onAction="#onNewEmailButtonClick" text="+">
       <font>
          <Font size="26.0" />
       </font>
    </Button>
-   <AnchorPane fx:id="newEmailView" layoutX="293.0" layoutY="30.0" prefHeight="442.0" prefWidth="526.0">
+
+   <!--New Email View-->
+   <AnchorPane fx:id="newEmailView" layoutX="293.0" layoutY="13.0" prefHeight="459.0" prefWidth="545.0" visible="false">
       <children>
-         <Button fx:id="closeNewEmailButton" layoutX="460.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseNewEmailButton" />
-         <ImageView fitHeight="34.0" fitWidth="49.0" layoutX="470.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@img/icons/close.png" />
-            </image>
-         </ImageView>
+         <Button fx:id="closeNewEmailButton" layoutX="499.0" layoutY="7.0" minWidth="39.0" mnemonicParsing="false" onAction="#onCloseNewEmailButton" prefHeight="39.0" prefWidth="39.0">
+            <graphic>
+               <ImageView fitHeight="34.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/icons/close.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
       </children>
    </AnchorPane>
 
