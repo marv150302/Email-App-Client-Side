@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Aggiornamento della main view(aggiunte view)">
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Aggiornamento della main view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +39,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Notification.DisplayName-DoNotAsk-Vcs Important Messages": "VCS important messages",
+    "Notification.DoNotAsk-Vcs Important Messages": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -88,7 +91,7 @@
       <workItem from="1699956182261" duration="10791000" />
       <workItem from="1699968515991" duration="5195000" />
       <workItem from="1699974546961" duration="400000" />
-      <workItem from="1699974977853" duration="8771000" />
+      <workItem from="1699974977853" duration="9287000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -170,7 +173,23 @@
       <option name="project" value="LOCAL" />
       <updated>1699992224385</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Aggiornamento della main view">
+      <option name="closed" value="true" />
+      <created>1699992642717</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1699992642717</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Aggiornamento della main view">
+      <option name="closed" value="true" />
+      <created>1699992656478</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1699992656478</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,9 +199,9 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Creazione Progetto" />
     <MESSAGE value="Aggiornamento classe Email.java" />
-    <MESSAGE value="Aggiornamento della main view" />
     <MESSAGE value="Aggiornamento della main view(aggiunta icona)" />
     <MESSAGE value="Aggiornamento della main view(aggiunte view)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiornamento della main view(aggiunte view)" />
+    <MESSAGE value="Aggiornamento della main view" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggiornamento della main view" />
   </component>
 </project>

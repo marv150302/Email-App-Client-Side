@@ -29,10 +29,11 @@
 #closeNewEmailButton{
 
     -fx-background-color: none;
+
 }
 #newEmailView{
 
-    -fx-background-color: grey;
+    -fx-background-color: lightgrey;
 }
 #inbox_button:hover{
 
