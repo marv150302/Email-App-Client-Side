@@ -6,13 +6,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoprog3.HelloController">
    <stylesheets>
       <URL value="@main.css" />
    </stylesheets>
@@ -34,24 +31,23 @@
             <font>
                <Font size="7.0" />
             </font></Button>
-         <GridPane>
-           <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           </columnConstraints>
-           <rowConstraints>
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-         </GridPane>
       </children>
    </VBox>
-   <Button fx:id="new_email_button" layoutX="787.0" layoutY="525.0" mnemonicParsing="false" text="+">
+   <Button fx:id="new_email_button" layoutX="787.0" layoutY="525.0" mnemonicParsing="false" onAction="#onNewEmailButtonClick" text="+">
       <font>
          <Font size="26.0" />
       </font>
    </Button>
+   <AnchorPane fx:id="newEmailView" layoutX="293.0" layoutY="30.0" prefHeight="442.0" prefWidth="526.0">
+      <children>
+         <Button fx:id="closeNewEmailButton" layoutX="460.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseNewEmailButton" />
+         <ImageView fitHeight="34.0" fitWidth="49.0" layoutX="470.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@img/icons/close.png" />
+            </image>
+         </ImageView>
+      </children>
+   </AnchorPane>
 
 
 </AnchorPane>

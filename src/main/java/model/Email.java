@@ -39,6 +39,10 @@ public class Email {
         this.sender = sender;
     }
 
+    public void print() {
+
+        System.out.println("Button pressed");
+    }
     /*
     * @param receiverEmail  we use the receiver's email to identify him
     * @param text the email's text

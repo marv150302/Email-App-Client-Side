@@ -21,6 +21,19 @@
     -fx-font-family: "Helvetica Neue";
     -fx-font-weight: bold;*/
 }
+
+#new_email_button:pressed{
+
+    -fx-text-fill: black;
+}
+#closeNewEmailButton{
+
+    -fx-background-color: none;
+}
+#newEmailView{
+
+    -fx-background-color: grey;
+}
 #inbox_button:hover{
 
     -fx-text-fill: white;
