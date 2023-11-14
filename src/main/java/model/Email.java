@@ -24,9 +24,7 @@ public class Email {
     //private DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     private String date;
 
-    public Email(String ID, Utente sender){
-
-        this.ID = ID;
+    public Email(Utente sender){
 
         /*
         * Date handling that will be pushed to the sending function
@@ -41,20 +39,33 @@ public class Email {
         this.sender = sender;
     }
 
-    public boolean sendEmail(String text, String argument){
+    /*
+    * @param receiverEmail  we use the receiver's email to identify him
+    * @param text the email's text
+    * @param argument the email's argument
+    *
+    * this function is used to send an email, if the search function throws an error,
+    * we are going to catch it,
+    * and we will notify the sender that there was an error
+    * */
+    public void sendEmail(String[] receiverEmail, String text, String argument){
+
+        if (search(receiverEmail)){
 
 
-        return true;
+        }
     }
 
     /*
+     * @param receiver the object of the receiver
+     * @return boolean true if the receiver is found
+     * if the receiver is not found the server is going to throw an error
+     * -----------------------------------------------------------------
      * we are going to ask the server to
      * look in its "database"(wich is going to be a json file),
      * if the sender is among the list of its avalible user
-     * @param receiver the object of the receiver
-     * @return boolean true if the receiver is found
      * */
-    public boolean search(Utente receiver){
+    public boolean search(String[] receiverEmail){
 
         return true;
     }
