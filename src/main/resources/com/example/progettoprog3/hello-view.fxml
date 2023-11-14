@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
+<?import java.net.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="${parent.height}" prefWidth="134.0" style="-fx-background-color: green;">
+
+      <Pane prefHeight="82.0" prefWidth="813.0" />
+      <VBox fx:id="left_menu" prefHeight="${parent.height}" prefWidth="300.0">
 
       </VBox>
+
    </children>
+   <stylesheets>
+      <URL value="@main.css" />
+   </stylesheets>
 </AnchorPane>

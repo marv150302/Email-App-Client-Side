@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Aggiornamento classe Email.java">
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Aggiornamento della main view">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +19,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -32,22 +35,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/progettoprog3" />
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
@@ -75,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1699954885829</updated>
       <workItem from="1699954887320" duration="1205000" />
-      <workItem from="1699956182261" duration="5222000" />
+      <workItem from="1699956182261" duration="7799000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -117,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699959902394</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Aggiornamento della main view">
+      <option name="closed" value="true" />
+      <created>1699961465032</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1699961465032</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +140,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creazione Progetto" />
     <MESSAGE value="Aggiornamento classe Email.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiornamento classe Email.java" />
+    <MESSAGE value="Aggiornamento della main view" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggiornamento della main view" />
   </component>
 </project>
