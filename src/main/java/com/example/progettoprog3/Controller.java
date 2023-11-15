@@ -3,8 +3,9 @@ package com.example.progettoprog3;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.AnchorPane;
+import java.util.regex.*;
+import java.util.*;
 import javafx.scene.layout.VBox;
 import model.*;
 
@@ -115,6 +116,16 @@ public class Controller {
         new_email_button.setDisable(false);
         mainView.setDisable(false);
         inbox_button.setDisable(false);
+        checkEmail();
+    }
 
+    protected boolean checkEmail(){
+
+        String regex = "^(.+)@(\\S+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(model.getReceiver_email().getValue());
+        //receiver_email.getStyleClass().add("text-field-area-error");
+        System.out.println(matcher.matches());
+        return matcher.matches();
     }
 }

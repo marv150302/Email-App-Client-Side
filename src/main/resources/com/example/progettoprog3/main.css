@@ -53,3 +53,8 @@
 
     -fx-border-color: none;
 }
+
+.text-field-area-error{
+    -fx-text-box-border: red ;
+    -fx-focus-color: red ;
+}
