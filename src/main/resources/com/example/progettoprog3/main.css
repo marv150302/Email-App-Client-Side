@@ -8,7 +8,10 @@
     -fx-background-image: url("img/unito-logo.png");
     -fx-background-size: cover;
 }
+#inbox_button:hover{
 
+    -fx-background-color: rgb(56, 39, 97);
+}
 #inbox_button, .menu_options, #new_email_button{
 
     -fx-background-color:  rgb(63,51,98);
@@ -33,14 +36,14 @@
 }
 #newEmailView{
 
-    -fx-background-color: lightgrey;
+    -fx-background-color: #dad9d9;
 }
 #inbox_button:hover{
 
     -fx-text-fill: white;
 }
 
-#icon{
+#receiver_email_field{
 
-
+    -fx-border-color: none;
 }
