@@ -1,8 +1,8 @@
-package model;
+package com.example.progettoprog3;
 
 import javafx.beans.property.SimpleStringProperty; //simple string property library
+import model.DataModel;
 
-import java.util.Date;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 public class Email {
 
     private String ID;
-    private Utente sender;
+    private DataModel.Utente sender;
     private SimpleStringProperty receiver = null;
     private SimpleStringProperty argument = null ;
     private SimpleStringProperty text = null;
     //private DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     private String date;
 
-    public Email(Utente sender){
+    public Email(DataModel.Utente sender){
 
         /*
         * Date handling that will be pushed to the sending function

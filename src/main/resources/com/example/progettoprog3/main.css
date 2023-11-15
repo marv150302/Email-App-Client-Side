@@ -12,7 +12,7 @@
 
     -fx-background-color: rgb(56, 39, 97);
 }
-#inbox_button, .menu_options, #new_email_button{
+#inbox_button, .menu_options, #new_email_button,#sendButton{
 
     -fx-background-color:  rgb(63,51,98);
     -fx-text-fill: white;
@@ -37,6 +37,12 @@
 #newEmailView{
 
     -fx-background-color: #dad9d9;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);*/
+}
+
+.text-field-area {
+    -fx-text-box-border: transparent;
+    -fx-focus-color: transparent;
 }
 #inbox_button:hover{
 
