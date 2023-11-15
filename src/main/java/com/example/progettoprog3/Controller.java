@@ -2,10 +2,13 @@ package com.example.progettoprog3;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.ArrayList;
 import java.util.regex.*;
-import java.util.*;
+
 import javafx.scene.layout.VBox;
 import model.*;
 
@@ -79,6 +82,13 @@ public class Controller {
     @FXML
     private TextField receiver_email;
 
+    @FXML
+    private TextField email_object;
+
+    @FXML
+    private TextArea email_text;
+
+    private boolean[] checkFields = {true, true, true};
     /*
     * Object of type model,
     * used to handle the model class
@@ -108,24 +118,80 @@ public class Controller {
     public void initModel(){
 
         receiver_email.textProperty().bindBidirectional(model.getReceiver_email());
+        email_object.textProperty().bindBidirectional(model.getEmail_object());
+        this.email_text.textProperty().bindBidirectional(model.getEmail_text());
     }
     @FXML
     protected void onCloseNewEmailButton(){
 
-        newEmailView.setVisible(false);
-        new_email_button.setDisable(false);
-        mainView.setDisable(false);
-        inbox_button.setDisable(false);
-        checkEmail();
+        newEmailView.setVisible(false);//hide new email view
+        new_email_button.setDisable(false);//allow pressing new email button
+        mainView.setDisable(false);//allow the main view to function
+        inbox_button.setDisable(false);//allow the inbox button to work
+    }
+
+    @FXML
+    protected void onSendEmailButton(){
+
+        /*
+        * we check the fields
+        * */
+        /*
+        * we are going to make
+        * our HTTP request from here
+        * */
+        this.checkFields();
+    }
+
+    private boolean checkFields(){
+
+
+        /*
+        * we check the email correctness
+        * */
+        if (!this.checkEmail()){
+
+            receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
+            return false;
+        }else{
+
+            receiver_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
+        }
+
+        /*
+        * we check the email object corrected
+        * */
+
+        return true;
+        //return checkEmail() && this.checkEmailText() && this.checkEmailObject();
     }
 
     protected boolean checkEmail(){
-
+        /*
+         * if the email is empty or null we return false
+         * */
+        if (model.getReceiver_email().getValue() == null || model.getReceiver_email().getValue().isEmpty()) return false;
+        /**/
         String regex = "^(.+)@(\\S+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(model.getReceiver_email().getValue());
-        //receiver_email.getStyleClass().add("text-field-area-error");
-        System.out.println(matcher.matches());
+        this.checkFields[0] = matcher.matches();
         return matcher.matches();
     }
+
+    private boolean checkEmailObject(){
+
+        this.checkFields[1] = !this.model.getEmail_object().getValue().isEmpty();
+        return !this.model.getEmail_object().getValue().isEmpty();
+    }
+    private boolean checkEmailText(){
+
+
+        this.checkFields[2] = !this.model.getEmail_text().getValue().isEmpty();
+        return !this.model.getEmail_text().getValue().isEmpty();
+    }
+
+
+
+
 }

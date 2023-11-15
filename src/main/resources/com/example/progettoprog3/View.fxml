@@ -57,9 +57,9 @@
             </graphic></Button>
          <!--Textfield to put the receiver's email-->
          <TextField fx:id="receiver_email" layoutX="30.0" layoutY="30.0" prefHeight="32.0" prefWidth="429.0" promptText="To:" style="-fx-border-radius: 0;" styleClass="text-field-area" />
-         <TextField layoutX="30.0" layoutY="70.0" prefHeight="32.0" prefWidth="429.0" promptText="Object" styleClass="text-field-area" />
-         <TextArea layoutX="30.0" layoutY="110.0" prefHeight="296.0" prefWidth="429.0" promptText="Text" styleClass="text-field-area" />
-         <Button fx:id="sendButton" layoutX="485.0" layoutY="400.0" mnemonicParsing="false" text="➜" textFill="WHITE">
+         <TextField fx:id="email_object" layoutX="30.0" layoutY="70.0" prefHeight="32.0" prefWidth="429.0" promptText="Object" styleClass="text-field-area" />
+         <TextArea fx:id="email_text" layoutX="30.0" layoutY="110.0" prefHeight="296.0" prefWidth="429.0" promptText="Text" styleClass="text-field-area" />
+         <Button fx:id="sendButton" layoutX="485.0" layoutY="400.0" mnemonicParsing="false" onAction="#onSendEmailButton" text="➜" textFill="WHITE">
             <font>
                <Font size="10.0" />
             </font>

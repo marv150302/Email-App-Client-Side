@@ -3,15 +3,23 @@ import javafx.beans.property.SimpleStringProperty;
 public class DataModel {
 
     private SimpleStringProperty receiver_email = null;
+    private SimpleStringProperty email_text = null;
+    private SimpleStringProperty email_object = null;
+
+    public DataModel(){
+
+        this.receiver_email = new SimpleStringProperty();
+        this.email_text = new SimpleStringProperty();
+        this.email_object = new SimpleStringProperty();
+    }
 
     public SimpleStringProperty getReceiver_email() {
         return receiver_email;
     }
 
-    public DataModel(){
+    public SimpleStringProperty getEmail_text() {return email_text;}
 
-        this.receiver_email = new SimpleStringProperty();
-    }
+    public SimpleStringProperty getEmail_object(){return this.email_object;}
     public class Utente{
 
         private String nome;
