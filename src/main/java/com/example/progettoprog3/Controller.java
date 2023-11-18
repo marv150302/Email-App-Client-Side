@@ -6,7 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
 import java.util.regex.*;
 
 import javafx.scene.layout.VBox;
@@ -88,13 +87,12 @@ public class Controller {
     @FXML
     private TextArea email_text;
 
-    private boolean[] checkFields = {true, true, true};
     /*
     * Object of type model,
     * used to handle the model class
     * */
     private DataModel model = new DataModel();
-
+    private boolean email_flag = false, object_flag = false, text_flag=false;//flags used to check for errors in the fields
     @FXML
     protected void onNewEmailButtonClick(){
 
@@ -146,23 +144,52 @@ public class Controller {
     private boolean checkFields(){
 
 
+        System.out.println("email flag: "+this.checkEmail());
+        System.out.println("object flag: "+object_flag);
+        System.out.println("text flag: "+text_flag);
+        System.out.println("------------------------------");
         /*
         * we check the email correctness
         * */
-        if (!this.checkEmail()){
+        if (!this.checkEmail() && !this.email_flag){
 
+            this.email_flag = true;//we flag it as an error
             receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
-            return false;
-        }else{
 
+        }else if (this.checkEmail() && this.email_flag){
+
+            this.email_flag = false;
             receiver_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
         }
 
         /*
         * we check the email object corrected
         * */
+        if(this.checkEmailObject() && !this.object_flag){
 
-        return true;
+            this.object_flag = true;
+            email_object.getStyleClass().add("text-field-area-error");
+
+        }else if (!this.checkEmailObject() && this.object_flag){
+
+            this.object_flag = false;
+            email_object.getStyleClass().remove("text-field-area-error");
+        }
+
+        /*
+        * we check the email text(empty or not)
+        * */
+        if (this.checkEmailText() && !this.text_flag){
+
+            this.text_flag = true;
+            email_text.getStyleClass().add("text-field-area-error");
+        }else if (!this.checkEmailText() && this.text_flag){
+
+            this.text_flag = false;
+            email_text.getStyleClass().remove("text-field-area-error");
+        }
+
+        return email_flag && object_flag && text_flag;
         //return checkEmail() && this.checkEmailText() && this.checkEmailObject();
     }
 
@@ -175,20 +202,20 @@ public class Controller {
         String regex = "^(.+)@(\\S+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(model.getReceiver_email().getValue());
-        this.checkFields[0] = matcher.matches();
         return matcher.matches();
     }
 
     private boolean checkEmailObject(){
 
-        this.checkFields[1] = !this.model.getEmail_object().getValue().isEmpty();
-        return !this.model.getEmail_object().getValue().isEmpty();
+        return model.getEmail_object().getValue() == null || model.getEmail_object().getValue().isEmpty();
+        //if (model.getEmail_object().getValue() == null || model.getEmail_object().getValue().isEmpty()) return false;
+        //return this.model.getEmail_object().getValue().isEmpty();
     }
     private boolean checkEmailText(){
 
-
-        this.checkFields[2] = !this.model.getEmail_text().getValue().isEmpty();
-        return !this.model.getEmail_text().getValue().isEmpty();
+        return (model.getEmail_text().getValue() == null || model.getEmail_text().getValue().isEmpty());
+        //if (model.getEmail_text().getValue() == null || model.getEmail_text().getValue().isEmpty()) return false;
+        //return !this.model.getEmail_text().getValue().isEmpty();
     }
 
 
