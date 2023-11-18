@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 public class Email {
 
     private String ID;
-    private DataModel.Utente sender;
+    private DataModel.User sender;
     private SimpleStringProperty receiver = null;
     private SimpleStringProperty argument = null ;
     private SimpleStringProperty text = null;
     //private DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     private String date;
 
-    public Email(DataModel.Utente sender){
+    public Email(DataModel.User sender){
 
         /*
         * Date handling that will be pushed to the sending function

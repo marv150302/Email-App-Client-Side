@@ -8,8 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="mainView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettoprog3.Controller">
    <stylesheets>
@@ -18,7 +20,7 @@
 
 
    <!--Left Side Menu-->
-   <VBox fx:id="left_menu" prefHeight="584.0" prefWidth="279.0">
+   <VBox fx:id="left_menu" disable="true" prefHeight="584.0" prefWidth="279.0">
       <children>
          <Button fx:id="inbox_button" graphicTextGap="20.0" layoutY="500.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="279.0" text="Inbox">
             <graphic>
@@ -38,7 +40,7 @@
    </VBox>
 
    <!--New Email Button-->
-   <Button fx:id="new_email_button" layoutX="787.0" layoutY="525.0" mnemonicParsing="false" onAction="#onNewEmailButtonClick" text="+">
+   <Button fx:id="new_email_button" disable="true" layoutX="787.0" layoutY="525.0" mnemonicParsing="false" onAction="#onNewEmailButtonClick" text="+">
       <font>
          <Font size="26.0" />
       </font>
@@ -66,6 +68,13 @@
          </Button>
       </children>
    </AnchorPane>
+   <Pane fx:id="login_view" layoutX="325.0" layoutY="192.0" prefHeight="200.0" prefWidth="200.0">
+      <children>
+         <TextField fx:id="sender_email" layoutX="20.0" layoutY="88.0" promptText="Enter your email:" styleClass=".text-field-area" />
+         <Button layoutX="72.0" layoutY="155.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Login" />
+      </children>
+   </Pane>
+   <Text fx:id="username" layoutX="748.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="78.21630859375" />
 
 
 </AnchorPane>

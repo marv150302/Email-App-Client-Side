@@ -58,3 +58,14 @@
     -fx-text-box-border: red ;
     -fx-focus-color: red ;
 }
+#login_view{
+
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+}
+
+#username{
+
+    -fx-font-weight: bold;
+}

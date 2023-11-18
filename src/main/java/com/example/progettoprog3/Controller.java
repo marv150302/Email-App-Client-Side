@@ -8,7 +8,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.regex.*;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.*;
 
 /*
@@ -88,11 +90,21 @@ public class Controller {
     private TextArea email_text;
 
     /*
+    * login info
+    * */
+    @FXML
+    private TextField sender_email;
+    @FXML
+    private Pane login_view;
+    @FXML
+    private Text username;
+
+    /*
     * Object of type model,
     * used to handle the model class
     * */
-    private DataModel model = new DataModel();
-    private boolean email_flag = false, object_flag = false, text_flag=false;//flags used to check for errors in the fields
+    private final DataModel model = new DataModel();
+    private boolean sender_email_error_flag = false,receiver_email_error_flag = false, email_object_error_flag = false, email_text_error_flag =false;//flags used to check for errors in the fields
     @FXML
     protected void onNewEmailButtonClick(){
 
@@ -109,15 +121,50 @@ public class Controller {
         newEmailView.setVisible(true);
     }
 
+    @FXML
+    private void onLoginButtonClick(){
+
+        /*
+        * if the email we used to enter is written correctly then we "login"
+        * */
+        if (isCorrectEmail(model.getSender_email().getValue())){
+        //newEmailView.setVisible(false);//hide new email view
+            left_menu.setDisable(false);
+            new_email_button.setDisable(false);//allow pressing new email button
+            mainView.setDisable(false);//allow the main view to function
+            login_view.setVisible(false);
+            username.textProperty().set(model.getSender_email().getValue());
+            this.model.user = new DataModel.User("","",model.getSender_email().getValue());
+        }else {
+
+            handleLoginError();
+        }
+
+    }
+
+    private void handleLoginError(){
+
+        if (!this.isCorrectEmail(model.getSender_email().getValue()) && !this.sender_email_error_flag){
+
+            this.sender_email_error_flag = true;//we flag it as an error
+            sender_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
+
+        }else if (this.isCorrectEmail(model.getSender_email().getValue()) && this.sender_email_error_flag){
+
+            this.sender_email_error_flag = false;
+            sender_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
+        }
+    }
     /*
     * InitModel
     * Used to make binding with elements of our view
     * */
     public void initModel(){
 
-        receiver_email.textProperty().bindBidirectional(model.getReceiver_email());
-        email_object.textProperty().bindBidirectional(model.getEmail_object());
+        this.receiver_email.textProperty().bindBidirectional(model.getReceiver_email());
+        this.email_object.textProperty().bindBidirectional(model.getEmail_object());
         this.email_text.textProperty().bindBidirectional(model.getEmail_text());
+        this.sender_email.textProperty().bindBidirectional(model.getSender_email());
     }
     @FXML
     protected void onCloseNewEmailButton(){
@@ -138,84 +185,77 @@ public class Controller {
         * we are going to make
         * our HTTP request from here
         * */
-        this.checkFields();
+        System.out.println(this.newEmailformIsFilled());
     }
 
-    private boolean checkFields(){
-
-
-        System.out.println("email flag: "+this.checkEmail());
-        System.out.println("object flag: "+object_flag);
-        System.out.println("text flag: "+text_flag);
-        System.out.println("------------------------------");
+    private boolean newEmailformIsFilled(){
         /*
         * we check the email correctness
         * */
-        if (!this.checkEmail() && !this.email_flag){
+        if (!this.isCorrectEmail(model.getReceiver_email().getValue()) && !this.receiver_email_error_flag){
 
-            this.email_flag = true;//we flag it as an error
+            this.receiver_email_error_flag = true;//we flag it as an error
             receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
 
-        }else if (this.checkEmail() && this.email_flag){
+        }else if (this.isCorrectEmail(model.getReceiver_email().getValue()) && this.receiver_email_error_flag){
 
-            this.email_flag = false;
+            this.receiver_email_error_flag = false;
             receiver_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
         }
 
         /*
         * we check the email object corrected
         * */
-        if(this.checkEmailObject() && !this.object_flag){
+        if(this.emptyEmailObject() && !this.email_object_error_flag){
 
-            this.object_flag = true;
+            this.email_object_error_flag = true;
             email_object.getStyleClass().add("text-field-area-error");
 
-        }else if (!this.checkEmailObject() && this.object_flag){
+        }else if (!this.emptyEmailObject() && this.email_object_error_flag){
 
-            this.object_flag = false;
+            this.email_object_error_flag = false;
             email_object.getStyleClass().remove("text-field-area-error");
         }
 
         /*
         * we check the email text(empty or not)
         * */
-        if (this.checkEmailText() && !this.text_flag){
+        if (this.emptyEmailText() && !this.email_text_error_flag){
 
-            this.text_flag = true;
+            this.email_text_error_flag = true;
             email_text.getStyleClass().add("text-field-area-error");
-        }else if (!this.checkEmailText() && this.text_flag){
+        }else if (!this.emptyEmailText() && this.email_text_error_flag){
 
-            this.text_flag = false;
+            this.email_text_error_flag = false;
             email_text.getStyleClass().remove("text-field-area-error");
         }
 
-        return email_flag && object_flag && text_flag;
+        return !(receiver_email_error_flag && email_object_error_flag && email_text_error_flag);
         //return checkEmail() && this.checkEmailText() && this.checkEmailObject();
     }
 
-    protected boolean checkEmail(){
+    protected boolean isCorrectEmail(String email){
         /*
          * if the email is empty or null we return false
          * */
-        if (model.getReceiver_email().getValue() == null || model.getReceiver_email().getValue().isEmpty()) return false;
+        if (email == null || email.isEmpty()) return false;
         /**/
         String regex = "^(.+)@(\\S+)$";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(model.getReceiver_email().getValue());
+        Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
-    private boolean checkEmailObject(){
+    /*
+    * return:
+    * - true: if the field is empty or null
+    * */
+    private boolean emptyEmailObject(){
 
         return model.getEmail_object().getValue() == null || model.getEmail_object().getValue().isEmpty();
-        //if (model.getEmail_object().getValue() == null || model.getEmail_object().getValue().isEmpty()) return false;
-        //return this.model.getEmail_object().getValue().isEmpty();
     }
-    private boolean checkEmailText(){
+    private boolean emptyEmailText(){
 
         return (model.getEmail_text().getValue() == null || model.getEmail_text().getValue().isEmpty());
-        //if (model.getEmail_text().getValue() == null || model.getEmail_text().getValue().isEmpty()) return false;
-        //return !this.model.getEmail_text().getValue().isEmpty();
     }
 
 
