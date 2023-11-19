@@ -2,17 +2,27 @@ package com.example.progettoprog3;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Map;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import java.util.regex.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /*
 * This is the controller class used to handle our views elements
@@ -77,6 +87,12 @@ public class Controller {
     @FXML
     private VBox left_menu;
 
+
+    @FXML
+    private ListView inbox_list;
+    @FXML
+    private Pane readEmailView;
+
     /*-------------------------------------
     * receiver_email
     * this is a textField used to get the receiver's email
@@ -137,6 +153,12 @@ public class Controller {
         username.setVisible(true);
     }
     @FXML
+    public void handleMouseClick(MouseEvent arg0) {
+        readEmailView.setVisible(true);
+        inbox_list.setVisible(false);
+        System.out.println("clicked on " + inbox_list.getSelectionModel().getSelectedItem());
+    }
+    @FXML
     private void onLoginButtonClick(){
 
         /*
@@ -152,6 +174,13 @@ public class Controller {
             this.model.user = new DataModel.User("","",model.getSender_email().getValue());
             bb.setWidth(0);
             bb.setHeight(0);
+            inbox_list.setVisible(true);
+            try{
+
+                loadInbox();
+            } catch (IOException | ParseException e) {
+                throw new RuntimeException(e);
+            }
         }else {
 
             /*
@@ -197,8 +226,31 @@ public class Controller {
         bb.setHeight(3);
         left_menu.setEffect(bb);
         new_email_button.setEffect(bb);
+
+
     }
 
+    protected void loadInbox() throws IOException, ParseException {
+
+        String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/test.json";
+        /*Object obj = new JSONParser().parse(new FileReader("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/test.json"));
+        JSONObject jo = (JSONObject) obj;
+
+        JSONArray ja = (JSONArray) jo.get("emails");
+        System.out.println(ja.get(0));*/
+
+        JSONParser jsonParser = new JSONParser();
+        JSONArray a = (JSONArray) jsonParser.parse(new FileReader(src));
+        for (Object o : a) {
+
+            JSONObject rootObj = (JSONObject) o;
+            String sender = (String) rootObj.get("sender");
+            System.out.println(sender);
+            inbox_list.getItems().add(inbox_list.getItems().size(), sender);
+        }
+
+
+    }
 
     @FXML
     protected void onSendEmailButtonClick(){
