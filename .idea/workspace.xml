@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="added login view with check">
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="- handle multiple email delivery">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +95,7 @@
       <workItem from="1699956182261" duration="10791000" />
       <workItem from="1699968515991" duration="5195000" />
       <workItem from="1699974546961" duration="400000" />
-      <workItem from="1699974977853" duration="40204000" />
+      <workItem from="1699974977853" duration="41323000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -259,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700318797625</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="- handle multiple email delivery">
+      <option name="closed" value="true" />
+      <created>1700395746843</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1700395746843</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +284,7 @@
     <MESSAGE value="added email checking function" />
     <MESSAGE value="finished the email field control" />
     <MESSAGE value="added login view with check" />
-    <option name="LAST_COMMIT_MESSAGE" value="added login view with check" />
+    <MESSAGE value="- handle multiple email delivery" />
+    <option name="LAST_COMMIT_MESSAGE" value="- handle multiple email delivery" />
   </component>
 </project>
