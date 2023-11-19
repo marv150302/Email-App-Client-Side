@@ -12,6 +12,12 @@
 
     -fx-background-color: rgb(56, 39, 97);
 }
+#login_button{
+
+    -fx-background-color:  rgb(63,51,98);
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
 #inbox_button, .menu_options, #new_email_button,#sendButton{
 
     -fx-background-color:  rgb(63,51,98);
@@ -60,9 +66,12 @@
 }
 #login_view{
 
+    /*
     -fx-border-color: black;
     -fx-border-width: 1px;
-    -fx-border-style: solid;
+    -fx-border-style: solid;*
+
+     */
 }
 
 #username{
