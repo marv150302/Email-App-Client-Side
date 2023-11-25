@@ -70,10 +70,10 @@
       </children>
    </AnchorPane>
    <Text fx:id="username" layoutX="566.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="179.21630859375" />
-   <ListView fx:id="inbox_list" layoutX="285.0" layoutY="90.0" onMouseClicked="#onMouseClickOnEmail" prefHeight="409.0" prefWidth="558.0" visible="false" />
+   <ListView fx:id="inbox_list" layoutX="285.0" layoutY="90.0" onMouseClicked="#readEmail" prefHeight="409.0" prefWidth="558.0" visible="false" />
    <Pane fx:id="readEmailView" layoutX="285.0" layoutY="81.0" prefHeight="409.0" prefWidth="558.0" visible="false">
       <children>
-         <Button fx:id="closeNewEmailButton1" minWidth="39.0" mnemonicParsing="false" onAction="#onCloseNewEmailButtonClick" prefHeight="39.0" prefWidth="39.0">
+         <Button fx:id="closeNewEmailButton" minWidth="39.0" mnemonicParsing="false" onAction="#closeEmail" prefHeight="39.0" prefWidth="39.0">
             <graphic>
                <ImageView fitHeight="34.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -85,9 +85,9 @@
          <TextArea editable="false" layoutX="33.0" layoutY="183.0" prefHeight="200.0" prefWidth="493.0" />
          <TextField editable="false" layoutX="33.0" layoutY="84.0" prefHeight="26.0" prefWidth="493.0" />
          <TextField editable="false" layoutX="33.0" layoutY="139.0" prefHeight="26.0" prefWidth="493.0" />
-         <Button layoutX="402.0" layoutY="15.0" mnemonicParsing="false" text="Reply All" />
-         <Button layoutX="331.0" layoutY="15.0" mnemonicParsing="false" text="Reply" />
-         <Button layoutX="482.0" layoutY="15.0" mnemonicParsing="false" text="Forward" />
+         <Button fx:id="reply_all" layoutX="402.0" layoutY="15.0" mnemonicParsing="false" text="Reply All" />
+         <Button fx:id="reply" layoutX="331.0" layoutY="15.0" mnemonicParsing="false" text="Reply" />
+         <Button fx:id="forward" layoutX="482.0" layoutY="15.0" mnemonicParsing="false" text="Forward" />
       </children>
    </Pane>
    <Pane fx:id="login_view" layoutX="325.0" layoutY="192.0" prefHeight="200.0" prefWidth="200.0">

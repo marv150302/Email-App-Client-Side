@@ -1,5 +1,4 @@
 package model;
-import com.example.progettoprog3.User;
 import javafx.beans.property.SimpleStringProperty;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +20,6 @@ public class DataModel {
     private SimpleStringProperty receiver_email = null;
     private SimpleStringProperty email_text = null;
     private SimpleStringProperty email_object = null;
-    public User user;
     public Email email = new Email();
 
     public DataModel(){
@@ -61,11 +59,12 @@ public class DataModel {
         private String date;
 
         public Email(){}
-        public Email(String ID, String sender, String receiver, String text, String object){
+        public Email(String ID, String sender, String receiver, String text, String object, String date){
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            this.date = dtf.format(now);
+            //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            //LocalDateTime now = LocalDateTime.now();
+            //dtf.format(now)
+            this.date = date;
             this.sender = sender;
             this.receiver_ = receiver;
             this.text_ = text;
@@ -93,7 +92,7 @@ public class DataModel {
          * which will give us back our inbox list as a JSON file
          * @return the JSON array containing our Inbox List
          * */
-        public ArrayList<Email> getUserEmails(User User) throws IOException, ParseException {
+        public ArrayList<Email> getUserEmails(String User) throws IOException, ParseException {
 
             String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/test.json";
             ArrayList<Email> emails = new ArrayList<>();
@@ -108,8 +107,9 @@ public class DataModel {
                 String receiver = (String) rootObj.get("receiver");
                 String text = (String) rootObj.get("text");
                 String object = (String) rootObj.get("object");
+                String date = (String) rootObj.get("date");
                 //
-                emails.add(new Email(ID, sender,receiver,text, object));
+                emails.add(new Email(ID, sender,receiver,text, object, date));
             }
             return emails;
         }

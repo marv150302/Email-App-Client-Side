@@ -11,8 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -197,6 +195,7 @@ public class Controller {
         closeNewEmailButton.setDisable(false);
         newEmailView.setDisable(false);
         username.setVisible(false);
+        inbox_list.setVisible(false);
         /*
         * open the new View for sending a new email
         * */
@@ -215,7 +214,8 @@ public class Controller {
         new_email_button.setDisable(false);//allow pressing new email button
         mainView.setDisable(false);//allow the main view to function
         inbox_button.setDisable(false);//allow the inbox button to work
-        username.setVisible(true);
+        username.setVisible(true);//show the username
+        inbox_list.setVisible(true);//show the inbox list
     }
 
     /*
@@ -224,10 +224,17 @@ public class Controller {
     * present in the inbox list
     * */
     @FXML
-    public void onMouseClickOnEmail(MouseEvent arg0) {
+    public void readEmail(MouseEvent arg0) {
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
         System.out.println("clicked on " + inbox_list.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    public void closeEmail(){
+
+        readEmailView.setVisible(false);
+        inbox_list.setVisible(true);
     }
 
     /*
@@ -246,7 +253,6 @@ public class Controller {
             mainView.setDisable(false);//allow the main view to function
             login_view.setVisible(false);
             username.textProperty().set(model.getSender_email().getValue());
-            this.model.user = new User("","",model.getSender_email().getValue());
             bb.setWidth(0);
             bb.setHeight(0);
             inbox_list.setVisible(true);
@@ -297,13 +303,13 @@ public class Controller {
         * we get the JSON array by making
         * a server call with the "getUserInbox" in the  USER class
         * */
-        ArrayList<DataModel.Email> emails = this.model.email.getUserEmails(this.model.user);
-        System.out.println(emails.size());
+        ArrayList<DataModel.Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
         for (DataModel.Email email : emails) {
 
             String sender = email.getSender();
-            String objcet = email.getObject_();
-            inbox_list.getItems().add(inbox_list.getItems().size(), "From: " + sender + " - " + objcet);
+            String object = email.getObject_();
+            String date = email.getDate();
+            inbox_list.getItems().add(inbox_list.getItems().size(), "\t" + "From: " + sender + "\t\t\t\t" + object + " \t\t\t\t\t\t" + date);
         }
     }
 

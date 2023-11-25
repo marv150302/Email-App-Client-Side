@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Added Comments&#10;Moved inner class to outer class&#10;Optimized code">
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="- Updated loadInbox function&#10;- Made email retrieving to return Email object">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Email.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/User.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/test.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DataModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/img/icons/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/img/icons/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +107,7 @@
       <workItem from="1700583844619" duration="276000" />
       <workItem from="1700587083851" duration="960000" />
       <workItem from="1700727477541" duration="592000" />
-      <workItem from="1700911068313" duration="6137000" />
+      <workItem from="1700911068313" duration="8537000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -299,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700914319746</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="- Updated loadInbox function&#10;- Made email retrieving to return Email object">
+      <option name="closed" value="true" />
+      <created>1700917433919</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1700917433920</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,6 +332,7 @@
     <MESSAGE value="view xml arrange" />
     <MESSAGE value="- added list view for email inbox&#10;- Optimized email checking function&#10;- Added JSON dependency for JSON file parsing" />
     <MESSAGE value="Added Comments&#10;Moved inner class to outer class&#10;Optimized code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Comments&#10;Moved inner class to outer class&#10;Optimized code" />
+    <MESSAGE value="- Updated loadInbox function&#10;- Made email retrieving to return Email object" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Updated loadInbox function&#10;- Made email retrieving to return Email object" />
   </component>
 </project>
