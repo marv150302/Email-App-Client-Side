@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="view xml arrange">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/test.json" afterDir="false" />
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="- added list view for email inbox&#10;- Optimized email checking function&#10;- Added JSON dependency for JSON file parsing">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Email.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DataModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,29 +39,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Notification.DisplayName-DoNotAsk-Vcs Important Messages": "VCS important messages",
-    "Notification.DoNotAsk-Vcs Important Messages": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "21",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Vcs Important Messages&quot;: &quot;VCS important messages&quot;,
+    &quot;Notification.DoNotAsk-Vcs Important Messages&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3" />
@@ -100,7 +99,13 @@
       <workItem from="1699956182261" duration="10791000" />
       <workItem from="1699968515991" duration="5195000" />
       <workItem from="1699974546961" duration="400000" />
-      <workItem from="1699974977853" duration="49168000" />
+      <workItem from="1699974977853" duration="49510000" />
+      <workItem from="1700427365937" duration="44000" />
+      <workItem from="1700562028059" duration="857000" />
+      <workItem from="1700583844619" duration="276000" />
+      <workItem from="1700587083851" duration="960000" />
+      <workItem from="1700727477541" duration="592000" />
+      <workItem from="1700911068313" duration="2923000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -278,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700397461938</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="- added list view for email inbox&#10;- Optimized email checking function&#10;- Added JSON dependency for JSON file parsing">
+      <option name="closed" value="true" />
+      <created>1700427216589</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1700427216590</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +312,7 @@
     <MESSAGE value="added login view with check" />
     <MESSAGE value="- handle multiple email delivery" />
     <MESSAGE value="view xml arrange" />
-    <option name="LAST_COMMIT_MESSAGE" value="view xml arrange" />
+    <MESSAGE value="- added list view for email inbox&#10;- Optimized email checking function&#10;- Added JSON dependency for JSON file parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="- added list view for email inbox&#10;- Optimized email checking function&#10;- Added JSON dependency for JSON file parsing" />
   </component>
 </project>

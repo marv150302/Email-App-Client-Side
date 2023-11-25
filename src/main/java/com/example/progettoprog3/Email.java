@@ -5,6 +5,8 @@ import model.DataModel;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 * The Email class is used by istances of the messages of the emails
@@ -17,26 +19,33 @@ import java.time.LocalDateTime;
 public class Email {
 
     private String ID;
-    private DataModel.User sender;
+    private User sender;
     private SimpleStringProperty receiver = null;
     private SimpleStringProperty argument = null ;
     private SimpleStringProperty text = null;
     //private DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     private String date;
 
-    public Email(DataModel.User sender){
+    public Email(User sender){
 
-        /*
-        * Date handling that will be pushed to the sending function
-        * */
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.date = dtf.format(now);
-        /*
-        * ----------------
-        * */
-
         this.sender = sender;
+    }
+    protected boolean isCorrectEmailFormat(String emails){
+
+
+        if (emails.isEmpty()) return false;
+        String[] email_list = emails.split(" ");
+        for (String s : email_list) {
+
+            String regex = "^(.+)@(\\S+)$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(s);
+            if (!matcher.matches()) return false;
+        }
+        return true;
     }
 
 

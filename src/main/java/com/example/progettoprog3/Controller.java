@@ -9,19 +9,13 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.util.regex.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.*;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /*
@@ -88,8 +82,18 @@ public class Controller {
     private VBox left_menu;
 
 
+    /*
+    * inbox_list
+    * a listView used to display the user's inbox
+    * */
     @FXML
     private ListView inbox_list;
+
+    /*
+    * readEmailView
+    * the view that will be  opened when the user clicks
+    * on one of the emails in the  inbox list(inbox_list ListView)
+    * */
     @FXML
     private Pane readEmailView;
 
@@ -101,19 +105,44 @@ public class Controller {
     @FXML
     private TextField receiver_email;
 
+    /*
+    * email_object
+    * the email object or argument
+    * */
     @FXML
     private TextField email_object;
 
+    /*
+    * email_text
+    * the email text
+    * */
     @FXML
     private TextArea email_text;
 
     /*
-    * login info
+    * login_view --> the view that will be opened
+    * when the user starts the application
+    * it will show the login box
+    *
+    * */
+    @FXML
+    private Pane login_view;
+
+    /*
+    * The textField in which the user is going to insert his email
+    * which (for now), we are going to use
+    * as the only necessary credential to login
     * */
     @FXML
     private TextField sender_email;
-    @FXML
-    private Pane login_view;
+
+    /*
+    * username
+    * A simple text to be displayed at
+    * the top of the application
+    * to show the username once
+    * the user has logged in
+    * */
     @FXML
     private Text username;
 
@@ -127,6 +156,26 @@ public class Controller {
     * These Flags are used to signal an error in fields filling
     * */
     private boolean sender_email_error_flag = false,receiver_email_error_flag = false, email_object_error_flag = false, email_text_error_flag =false;//flags used to check for errors in the fields
+
+    public void initModel(){
+
+        /*
+         * Binding
+         * */
+        this.receiver_email.textProperty().bindBidirectional(model.getReceiver_email());
+        this.email_object.textProperty().bindBidirectional(model.getEmail_object());
+        this.email_text.textProperty().bindBidirectional(model.getEmail_text());
+        this.sender_email.textProperty().bindBidirectional(model.getSender_email());
+        /*
+         * We set the background view and its element to blur,
+         * while the login view is being shown
+         * */
+        bb.setWidth(3);
+        bb.setHeight(3);
+        left_menu.setEffect(bb);
+        new_email_button.setEffect(bb);
+    }
+
     @FXML
     protected void onNewEmailButtonClick(){
 
@@ -153,7 +202,7 @@ public class Controller {
         username.setVisible(true);
     }
     @FXML
-    public void handleMouseClick(MouseEvent arg0) {
+    public void onMouseClickOnEmail(MouseEvent arg0) {
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
         System.out.println("clicked on " + inbox_list.getSelectionModel().getSelectedItem());
@@ -164,20 +213,20 @@ public class Controller {
         /*
         * if the email we used to enter is written correctly then we "login"
         * */
-        if (isCorrectEmail(model.getSender_email().getValue())){
+        if (this.model.email.isCorrectEmailFormat(model.getSender_email().getValue())){
 
             left_menu.setDisable(false);
             new_email_button.setDisable(false);//allow pressing new email button
             mainView.setDisable(false);//allow the main view to function
             login_view.setVisible(false);
             username.textProperty().set(model.getSender_email().getValue());
-            this.model.user = new DataModel.User("","",model.getSender_email().getValue());
+            this.model.user = new User("","",model.getSender_email().getValue());
             bb.setWidth(0);
             bb.setHeight(0);
             inbox_list.setVisible(true);
             try{
 
-                loadInbox();
+                loadUserInbox();
             } catch (IOException | ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -186,18 +235,22 @@ public class Controller {
             /*
             * if there is a mistake in logging in we handle the error graphically
             * */
-            handleLoginError();
+            onLoginError();
         }
 
     }
-    private void handleLoginError(){
 
-        if (!this.isCorrectEmail(model.getSender_email().getValue()) && !this.sender_email_error_flag){
+    /*
+    * if there is an error in the login, we add
+    * */
+    private void onLoginError(){
+
+        if (!this.model.email.isCorrectEmailFormat(model.getSender_email().getValue()) && !this.sender_email_error_flag){
 
             this.sender_email_error_flag = true;//we flag it as an error
             sender_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
 
-        }else if (this.isCorrectEmail(model.getSender_email().getValue()) && this.sender_email_error_flag){
+        }else if (this.model.email.isCorrectEmailFormat(model.getSender_email().getValue()) && this.sender_email_error_flag){
 
             this.sender_email_error_flag = false;
             sender_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
@@ -207,49 +260,24 @@ public class Controller {
     * InitModel
     * Used to make binding with elements of our view
     * */
-    public void initModel(){
 
+
+    /*
+    * this function is used to load the user inbox
+    * */
+    protected void loadUserInbox() throws IOException, ParseException {
         /*
-        * Binding
+        * we get the JSON array by making
+        * a server call with the "getUserInbox" in the  USER class
         * */
-        this.receiver_email.textProperty().bindBidirectional(model.getReceiver_email());
-        this.email_object.textProperty().bindBidirectional(model.getEmail_object());
-        this.email_text.textProperty().bindBidirectional(model.getEmail_text());
-        this.sender_email.textProperty().bindBidirectional(model.getSender_email());
-
-
-        /*
-        * We set the background view and its element to blur,
-        * while the login view is being shown
-        * */
-        bb.setWidth(3);
-        bb.setHeight(3);
-        left_menu.setEffect(bb);
-        new_email_button.setEffect(bb);
-
-
-    }
-
-    protected void loadInbox() throws IOException, ParseException {
-
-        String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/test.json";
-        /*Object obj = new JSONParser().parse(new FileReader("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/test.json"));
-        JSONObject jo = (JSONObject) obj;
-
-        JSONArray ja = (JSONArray) jo.get("emails");
-        System.out.println(ja.get(0));*/
-
-        JSONParser jsonParser = new JSONParser();
-        JSONArray a = (JSONArray) jsonParser.parse(new FileReader(src));
-        for (Object o : a) {
+        JSONArray list = this.model.user.getUserInbox();
+        for (Object o : list) {
 
             JSONObject rootObj = (JSONObject) o;
             String sender = (String) rootObj.get("sender");
             System.out.println(sender);
             inbox_list.getItems().add(inbox_list.getItems().size(), sender);
         }
-
-
     }
 
     @FXML
@@ -267,19 +295,19 @@ public class Controller {
         * we are going to make
         * our HTTP request from here
         * */
-        System.out.println(this.emailFormIsFilled(model.getReceiver_email().getValue()));
+        System.out.println(this.isEmailFormFilled(model.getReceiver_email().getValue()));
     }
 
-    private boolean emailFormIsFilled(String emails ){
+    private boolean isEmailFormFilled(String emails ){
         /*
         * we check the email correctness
         * */
-        if (!this.isCorrectEmail(emails) && !this.receiver_email_error_flag){
+        if (!this.model.email.isCorrectEmailFormat(emails) && !this.receiver_email_error_flag){
 
             this.receiver_email_error_flag = true;//we flag it as an error
             receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
 
-        }else if (this.isCorrectEmail(emails) && this.receiver_email_error_flag){
+        }else if (this.model.email.isCorrectEmailFormat(emails) && this.receiver_email_error_flag){
 
             this.receiver_email_error_flag = false;
             receiver_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
@@ -288,12 +316,12 @@ public class Controller {
         /*
         * we check the email object corrected
         * */
-        if(this.emptyEmailObject() && !this.email_object_error_flag){
+        if(this.isEmptyEmailObject() && !this.email_object_error_flag){
 
             this.email_object_error_flag = true;
             email_object.getStyleClass().add("text-field-area-error");
 
-        }else if (!this.emptyEmailObject() && this.email_object_error_flag){
+        }else if (!this.isEmptyEmailObject() && this.email_object_error_flag){
 
             this.email_object_error_flag = false;
             email_object.getStyleClass().remove("text-field-area-error");
@@ -302,11 +330,11 @@ public class Controller {
         /*
         * we check the email text(empty or not)
         * */
-        if (this.emptyEmailText() && !this.email_text_error_flag){
+        if (this.isEmptyEmailText() && !this.email_text_error_flag){
 
             this.email_text_error_flag = true;
             email_text.getStyleClass().add("text-field-area-error");
-        }else if (!this.emptyEmailText() && this.email_text_error_flag){
+        }else if (!this.isEmptyEmailText() && this.email_text_error_flag){
 
             this.email_text_error_flag = false;
             email_text.getStyleClass().remove("text-field-area-error");
@@ -315,32 +343,18 @@ public class Controller {
         return !(receiver_email_error_flag && email_object_error_flag && email_text_error_flag);
         //return checkEmail() && this.checkEmailText() && this.checkEmailObject();
     }
-
-    protected boolean isCorrectEmail(String emails){
-        /*
-         * if the email is empty or null we return false
-         * */
-        String[] email_list = emails.split(" ");
-        if (emails == null || email_list.length==0) return false;
-        /**/
-        for (int i=0, length=email_list.length; i < length;i++){
-
-            String regex = "^(.+)@(\\S+)$";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(email_list[i]);
-            if (!matcher.matches()) return false;
-        }
-        return true;
-    }
     /*
-    * return:
-    * - true: if the field is empty or null
+    * @return: true: if the field is empty or null
     * */
-    private boolean emptyEmailObject(){
+    private boolean isEmptyEmailObject(){
 
         return model.getEmail_object().getValue() == null || model.getEmail_object().getValue().isEmpty();
     }
-    private boolean emptyEmailText(){
+
+    /*
+     * @return: true: if the field is empty or null
+     * */
+    private boolean isEmptyEmailText(){
 
         return (model.getEmail_text().getValue() == null || model.getEmail_text().getValue().isEmpty());
     }
