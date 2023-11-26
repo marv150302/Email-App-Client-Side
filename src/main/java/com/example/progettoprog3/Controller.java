@@ -1,5 +1,6 @@
 package com.example.progettoprog3;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -82,7 +83,13 @@ public class Controller {
     * a listView used to display the user's inbox
     * */
     @FXML
-    private ListView inbox_list;
+    private TableView<DataModel.Email> inbox_list;
+    @FXML
+    private TableColumn<DataModel.Email, String> tableFromColumn;
+    @FXML
+    private TableColumn<DataModel.Email,String> tableObjectColumn;
+    @FXML
+    private TableColumn<DataModel.Email, String> tableDateColumn;
 
     /*
     * readEmailView
@@ -316,15 +323,16 @@ public class Controller {
         * a server call with the "getUserInbox" in the  USER class
         * */
         //ArrayList<DataModel.Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
-
+        inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         inbox_list.getItems().addAll( this.model.email.getUserEmails(this.model.getSender_email().getValue()));
-        inbox_list.setCellFactory(lv -> new ListCell<DataModel.Email>() {
-            @Override
-            public void updateItem(DataModel.Email email, boolean empty) {
-                super.updateItem(email, empty);
-                setText(empty ? null : "\t" + "From: " + email.getSender() + "\t\t\t\t" + email.getObject_() + " \t\t\t\t\t\t" + email.getDate());
-            }
-        });
+        tableFromColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getSender()));
+        tableObjectColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getObject_()));
+        tableDateColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDate()));
+
+       // tableFromColumn.setCellValueFactory(DataModel.Email -> new SimpleStringProperty(cellData.getValue().getPatientDTO().getPatientName())););
     }
 
     @FXML

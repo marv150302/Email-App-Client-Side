@@ -37,7 +37,7 @@ Button{
 
     -fx-text-fill: black;
 }
-#closeNewEmailButton{
+#closeNewEmailButton,#closeReadEmailButton{
 
     -fx-background-color: none;
 
@@ -89,3 +89,8 @@ TextField, TextArea{
 
     -fx-font-weight: bold;
 }
+
+/*
+Table view CSS
+*/
+
