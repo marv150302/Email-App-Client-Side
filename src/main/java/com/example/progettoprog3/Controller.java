@@ -1,6 +1,7 @@
 package com.example.progettoprog3;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -94,7 +95,7 @@ public class Controller {
     /*
     * readEmailView
     * the view that will be  opened when the user clicks
-    * on one of the emails in the  inbox list(inbox_list ListView)
+    * on one of the emails in the  inbox list(inbox_list TableView)
     * */
     @FXML
     private Pane readEmailView;
@@ -166,7 +167,7 @@ public class Controller {
     * These Flags are used to signal an error in fields filling
     * */
     private boolean sender_email_error_flag = false,receiver_email_error_flag = false, email_object_error_flag = false, email_text_error_flag =false;//flags used to check for errors in the fields
-
+    private DataModel.Email selectedEmail = null;
 
     /*
     *
@@ -207,6 +208,7 @@ public class Controller {
         newEmailView.setDisable(false);
         username.setVisible(false);
         inbox_list.setVisible(false);
+        readEmailView.setVisible(false);
         /*
         * open the new View for sending a new email
         * */
@@ -227,6 +229,11 @@ public class Controller {
         inbox_button.setDisable(false);//allow the inbox button to work
         username.setVisible(true);//show the username
         inbox_list.setVisible(true);//show the inbox list
+        receiver_email.promptTextProperty().set("To:");
+
+        this.receiver_email.textProperty().set("");
+        this.email_object.textProperty().set("");
+        this.email_text.textProperty().set("");
     }
 
     /*
@@ -239,14 +246,14 @@ public class Controller {
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
 
-        DataModel.Email selected = (DataModel.Email) inbox_list.getSelectionModel().getSelectedItem();
-        String selectedEmailId = selected.getID();
-        DataModel.Email clickedEmail = this.model.email.readNewEmail(selectedEmailId);
+        this.selectedEmail = (DataModel.Email) inbox_list.getSelectionModel().getSelectedItem();
+        String selectedEmailId = this.selectedEmail.getID();
+        this.selectedEmail = this.model.email.readNewEmail(selectedEmailId);
 
-        this.received_email_sender.textProperty().set(clickedEmail.getSender());
-        this.received_email_object.textProperty().set(clickedEmail.getObject_());
-        this.received_email_receivers.textProperty().set(clickedEmail.getReceiver_());
-        this.received_email_text.textProperty().set(clickedEmail.getText_());
+        this.received_email_sender.textProperty().set(this.selectedEmail.getSender());
+        this.received_email_object.textProperty().set(this.selectedEmail.getObject_());
+        this.received_email_receivers.textProperty().set(this.selectedEmail.getReceiver_());
+        this.received_email_text.textProperty().set(this.selectedEmail.getText_());
     }
 
     @FXML
@@ -415,10 +422,25 @@ public class Controller {
     }
 
     @FXML
-    private void onReplyButtonClick(){
+    private void onReplyButtonClick(ActionEvent event){
 
-        this.model.email.reply("","","");
+        Button source = (Button) event.getSource();
+        if (source.getId().equalsIgnoreCase("reply")){
+
+            this.receiver_email.textProperty().set(this.selectedEmail.getSender());
+        }else if (source.getId().equalsIgnoreCase("forward")){
+
+            this.receiver_email.promptTextProperty().set("Insert Email or Emails to forward to:");
+        }
+        this.onNewEmailButtonClick();
+
+
+        this.email_object.textProperty().set(this.selectedEmail.getObject_());
+        this.email_text.textProperty().set(this.selectedEmail.getText_() + "\n\n\n ------------------------------------------------------------------------- \n\n");
+        //this.model.email.reply(this.selectedEmail);
     }
+
+
 
 
 }

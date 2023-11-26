@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="- Added the option to display clicked email value on the&#10;  &quot;readEmailView&quot; view. &#10; - Updated the inbox loading function">
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="Changed css&#10;Changed from listView to tableView">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DataModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,7 @@
       <workItem from="1700583844619" duration="276000" />
       <workItem from="1700587083851" duration="960000" />
       <workItem from="1700727477541" duration="592000" />
-      <workItem from="1700911068313" duration="21003000" />
+      <workItem from="1700911068313" duration="23201000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -326,7 +326,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701018608881</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Changed css&#10;Changed from listView to tableView">
+      <option name="closed" value="true" />
+      <created>1701021807163</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1701021807164</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,6 +360,7 @@
     <MESSAGE value="- Updated loadInbox function&#10;- Made email retrieving to return Email object" />
     <MESSAGE value="- added function to close reading an email&#10;- Changed close email button" />
     <MESSAGE value="- Added the option to display clicked email value on the&#10;  &quot;readEmailView&quot; view. &#10; - Updated the inbox loading function" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added the option to display clicked email value on the&#10;  &quot;readEmailView&quot; view. &#10; - Updated the inbox loading function" />
+    <MESSAGE value="Changed css&#10;Changed from listView to tableView" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed css&#10;Changed from listView to tableView" />
   </component>
 </project>

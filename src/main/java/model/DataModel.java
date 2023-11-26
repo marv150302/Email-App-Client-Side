@@ -191,10 +191,11 @@ public class DataModel {
          * and we will notify the sender that there was an error
          * */
 
-        public void reply(String receiverEmail, String text, String argument){
+        public void reply(Email email, String reply){
 
+            String text = email.getText_() + reply;
         }
-        public void sendEmail(String[] receiverEmail, String text, String argument){
+        public void sendEmail(String text, String argument, String... receiverEmail){
 
             if (search(receiverEmail)){
 
