@@ -1,16 +1,12 @@
 package com.example.progettoprog3;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -95,6 +91,14 @@ public class Controller {
     * */
     @FXML
     private Pane readEmailView;
+    @FXML
+    private TextField received_email_object;
+    @FXML
+    private TextArea received_email_text;
+    @FXML
+    private TextField received_email_receivers;
+    @FXML
+    private TextField received_email_sender;
 
     /*-------------------------------------
     * receiver_email
@@ -227,7 +231,15 @@ public class Controller {
     public void readEmail(MouseEvent arg0) {
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
-        System.out.println("clicked on " + inbox_list.getSelectionModel().getSelectedItem());
+
+        DataModel.Email selected = (DataModel.Email) inbox_list.getSelectionModel().getSelectedItem();
+        String selectedEmailId = selected.getID();
+        DataModel.Email clickedEmail = this.model.email.readNewEmail(selectedEmailId);
+
+        this.received_email_sender.textProperty().set(clickedEmail.getSender());
+        this.received_email_object.textProperty().set(clickedEmail.getObject_());
+        this.received_email_receivers.textProperty().set(clickedEmail.getReceiver_());
+        this.received_email_text.textProperty().set(clickedEmail.getText_());
     }
 
     @FXML
@@ -303,14 +315,16 @@ public class Controller {
         * we get the JSON array by making
         * a server call with the "getUserInbox" in the  USER class
         * */
-        ArrayList<DataModel.Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
-        for (DataModel.Email email : emails) {
+        //ArrayList<DataModel.Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
 
-            String sender = email.getSender();
-            String object = email.getObject_();
-            String date = email.getDate();
-            inbox_list.getItems().add(inbox_list.getItems().size(), "\t" + "From: " + sender + "\t\t\t\t" + object + " \t\t\t\t\t\t" + date);
-        }
+        inbox_list.getItems().addAll( this.model.email.getUserEmails(this.model.getSender_email().getValue()));
+        inbox_list.setCellFactory(lv -> new ListCell<DataModel.Email>() {
+            @Override
+            public void updateItem(DataModel.Email email, boolean empty) {
+                super.updateItem(email, empty);
+                setText(empty ? null : "\t" + "From: " + email.getSender() + "\t\t\t\t" + email.getObject_() + " \t\t\t\t\t\t" + email.getDate());
+            }
+        });
     }
 
     @FXML
@@ -392,7 +406,11 @@ public class Controller {
         return (model.getEmail_text().getValue() == null || model.getEmail_text().getValue().isEmpty());
     }
 
+    @FXML
+    private void onReplyButtonClick(){
 
+        this.model.email.reply("","","");
+    }
 
 
 }

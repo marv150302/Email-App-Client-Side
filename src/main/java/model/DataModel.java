@@ -5,11 +5,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +72,7 @@ public class DataModel {
             this.receiver_ = receiver;
             this.text_ = text;
             this.object_ = object;
+            this.ID = ID;
 
         }
         public static boolean isCorrectEmailFormat(String emails){
@@ -94,7 +98,7 @@ public class DataModel {
          * */
         public ArrayList<Email> getUserEmails(String User) throws IOException, ParseException {
 
-            String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/test.json";
+            String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/MOCK_DATA.json";
             ArrayList<Email> emails = new ArrayList<>();
             JSONParser jsonParser = new JSONParser();
 
@@ -102,6 +106,7 @@ public class DataModel {
 
                 JSONObject rootObj = (JSONObject) o;
                 //
+
                 String ID = (String) rootObj.get("ID");
                 String sender = (String) rootObj.get("sender");
                 String receiver = (String) rootObj.get("receiver");
@@ -114,8 +119,46 @@ public class DataModel {
             return emails;
         }
 
+        public Email readNewEmail(String  emailID) {
+
+            Email email = null;
+            try {
+
+                String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/MOCK_DATA.json";
+                JSONParser json = new JSONParser();
+
+                JSONArray jsonArray = (JSONArray) json.parse(new FileReader(src));
+
+                for (Object o : (JSONArray) json.parse(new FileReader(src))) {
+
+                    JSONObject jsonObject = (JSONObject) o;
+                    if (emailID.equalsIgnoreCase(jsonObject.get("ID").toString())){
+
+                        String sender = (String) jsonObject.get("sender");
+                        String receiver = (String) jsonObject.get("receiver");
+                        String text = (String) jsonObject.get("text");
+                        String object = (String) jsonObject.get("object");
+                        String date = (String) jsonObject.get("date");
+
+                        email = new Email(emailID,sender,receiver,text,object,date);
+                    }
+                    //
+                    //
+                }
+                return email;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
         public String getID() {
             return ID;
+        }
+
+        public void setID(String ID) {
+            this.ID = ID;
         }
 
         public String getDate() {
@@ -147,11 +190,18 @@ public class DataModel {
          * we are going to catch it,
          * and we will notify the sender that there was an error
          * */
+
+        public void reply(String receiverEmail, String text, String argument){
+
+        }
         public void sendEmail(String[] receiverEmail, String text, String argument){
 
             if (search(receiverEmail)){
 
-
+                /*
+                * if the email is present then we proceed to send it, otherwise we
+                * notify the user with a graphic error
+                * */
             }
         }
 

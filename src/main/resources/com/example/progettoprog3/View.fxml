@@ -82,12 +82,16 @@
                </ImageView>
             </graphic>
          </Button>
-         <TextArea editable="false" layoutX="33.0" layoutY="183.0" prefHeight="200.0" prefWidth="493.0" />
-         <TextField editable="false" layoutX="33.0" layoutY="84.0" prefHeight="26.0" prefWidth="493.0" />
-         <TextField editable="false" layoutX="33.0" layoutY="139.0" prefHeight="26.0" prefWidth="493.0" />
+         <Text layoutY="-2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From:" wrappingWidth="42.064453125" x="20.0" y="70.0" />
+         <TextArea fx:id="received_email_text" editable="false" layoutX="14.0" layoutY="163.0" prefHeight="232.0" prefWidth="531.0" />
+         <TextField fx:id="received_email_receivers" editable="false" layoutX="73.0" layoutY="85.0" prefHeight="26.0" prefWidth="464.0" />
+         <TextField fx:id="received_email_object" editable="false" layoutX="73.0" layoutY="118.0" prefHeight="26.0" prefWidth="464.0" />
          <Button fx:id="reply_all" layoutX="402.0" layoutY="15.0" mnemonicParsing="false" text="Reply All" />
          <Button fx:id="reply" layoutX="331.0" layoutY="15.0" mnemonicParsing="false" text="Reply" />
          <Button fx:id="forward" layoutX="482.0" layoutY="15.0" mnemonicParsing="false" text="Forward" />
+         <TextField fx:id="received_email_sender" layoutX="73.0" layoutY="51.0" prefHeight="26.0" prefWidth="464.0" />
+         <Text layoutX="22.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To:" wrappingWidth="39.0" />
+         <Text layoutX="18.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Object:" wrappingWidth="42.064453125" />
       </children>
    </Pane>
    <Pane fx:id="login_view" layoutX="325.0" layoutY="192.0" prefHeight="200.0" prefWidth="200.0">
