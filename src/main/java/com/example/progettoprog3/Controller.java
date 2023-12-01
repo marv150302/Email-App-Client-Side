@@ -7,7 +7,13 @@ import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -84,13 +90,13 @@ public class Controller {
     * a listView used to display the user's inbox
     * */
     @FXML
-    private TableView<DataModel.Email> inbox_list;
+    private TableView<Email> inbox_list;
     @FXML
-    private TableColumn<DataModel.Email, String> tableFromColumn;
+    private TableColumn<Email, String> tableFromColumn;
     @FXML
-    private TableColumn<DataModel.Email,String> tableObjectColumn;
+    private TableColumn<Email,String> tableObjectColumn;
     @FXML
-    private TableColumn<DataModel.Email, String> tableDateColumn;
+    private TableColumn<Email, String> tableDateColumn;
 
     /*
     * readEmailView
@@ -167,7 +173,7 @@ public class Controller {
     * These Flags are used to signal an error in fields filling
     * */
     private boolean sender_email_error_flag = false,receiver_email_error_flag = false, email_object_error_flag = false, email_text_error_flag =false;//flags used to check for errors in the fields
-    private DataModel.Email selectedEmail = null;
+    private Email selectedEmail = null;
 
     /*
     *
@@ -246,7 +252,7 @@ public class Controller {
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
 
-        this.selectedEmail = (DataModel.Email) inbox_list.getSelectionModel().getSelectedItem();
+        this.selectedEmail = (Email) inbox_list.getSelectionModel().getSelectedItem();
         String selectedEmailId = this.selectedEmail.getID();
         this.selectedEmail = this.model.email.readNewEmail(selectedEmailId);
 
@@ -266,13 +272,29 @@ public class Controller {
     /*
     * function used to log in
     * */
+    private void tryConnectionWithServer() throws IOException {
+
+        InetAddress ip = InetAddress.getByName("localhost");
+        Socket s = new Socket(ip, 5056);
+        DataInputStream dis = new DataInputStream(s.getInputStream());
+        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+        System.out.println(dis.readUTF());
+        dos.writeUTF("exit");
+        System.out.println("Closing this connection : " + s);
+        s.close();
+        System.out.println("Connection closed");
+
+        dis.close();
+        dos.close();
+
+    }
     @FXML
     private void onLoginButtonClick(){
 
         /*
         * if the email we used to enter is written correctly then we "login"
         * */
-        if (DataModel.Email.isCorrectEmailFormat(model.getSender_email().getValue())){
+        if (Email.isCorrectEmailFormat(model.getSender_email().getValue())){
 
             left_menu.setDisable(false);
             new_email_button.setDisable(false);//allow pressing new email button
@@ -284,6 +306,7 @@ public class Controller {
             inbox_list.setVisible(true);
             try{
 
+                tryConnectionWithServer();
                 loadUserInbox();
             } catch (IOException | ParseException e) {
                 throw new RuntimeException(e);
@@ -304,12 +327,12 @@ public class Controller {
     * */
     private void onLoginError(){
 
-        if (!DataModel.Email.isCorrectEmailFormat(model.getSender_email().getValue()) && !this.sender_email_error_flag){
+        if (!Email.isCorrectEmailFormat(model.getSender_email().getValue()) && !this.sender_email_error_flag){
 
             this.sender_email_error_flag = true;//we flag it as an error
             sender_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
 
-        }else if (DataModel.Email.isCorrectEmailFormat(model.getSender_email().getValue()) && this.sender_email_error_flag){
+        }else if (Email.isCorrectEmailFormat(model.getSender_email().getValue()) && this.sender_email_error_flag){
 
             this.sender_email_error_flag = false;
             sender_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
@@ -329,7 +352,7 @@ public class Controller {
         * we get the JSON array by making
         * a server call with the "getUserInbox" in the  USER class
         * */
-        //ArrayList<DataModel.Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
+        //ArrayList<Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
         inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         inbox_list.getItems().addAll( this.model.email.getUserEmails(this.model.getSender_email().getValue()));
         tableFromColumn.setCellValueFactory(cellData ->
@@ -339,7 +362,7 @@ public class Controller {
         tableDateColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDate()));
 
-       // tableFromColumn.setCellValueFactory(DataModel.Email -> new SimpleStringProperty(cellData.getValue().getPatientDTO().getPatientName())););
+       // tableFromColumn.setCellValueFactory(Email -> new SimpleStringProperty(cellData.getValue().getPatientDTO().getPatientName())););
     }
 
     @FXML
@@ -364,12 +387,12 @@ public class Controller {
         /*
         * we check the email correctness
         * */
-        if (!DataModel.Email.isCorrectEmailFormat(emails) && !this.receiver_email_error_flag){
+        if (!Email.isCorrectEmailFormat(emails) && !this.receiver_email_error_flag){
 
             this.receiver_email_error_flag = true;//we flag it as an error
             receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
 
-        }else if (DataModel.Email.isCorrectEmailFormat(emails) && this.receiver_email_error_flag){
+        }else if (Email.isCorrectEmailFormat(emails) && this.receiver_email_error_flag){
 
             this.receiver_email_error_flag = false;
             receiver_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
