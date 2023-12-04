@@ -29,6 +29,8 @@ public class Email {
     private String text_;
     private String date;
 
+    ArrayList<Email> emails = new ArrayList<>();
+
     public Email(){}
     public Email(String ID, String sender, String receiver, String text, String object, String date){
 
@@ -74,16 +76,12 @@ public class Email {
             user_emails.createNewFile();
         }catch (IOException e){e.printStackTrace();}
 
-        //String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3";
-        ArrayList<Email> emails = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
 
-        System.out.println("path"+email_path);
         for (Object o : (JSONArray) jsonParser.parse(new FileReader(email_path))) {
 
             JSONObject rootObj = (JSONObject) o;
             //
-
             String ID = (String) rootObj.get("ID");
             String sender = (String) rootObj.get("sender");
             String receiver = (String) rootObj.get("receiver");
@@ -106,46 +104,19 @@ public class Email {
             System.out.println(dis.readUTF());
 
         }catch (Exception e){}
-
-
-        //dis.close();
-        //dos.close();
-
     }
-    public Email readNewEmail(String  emailID) {
 
-        Email email = null;
-        try {
+    public Email getEmail(String emailID){
 
-            String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/MOCK_DATA.json";
-            JSONParser json = new JSONParser();
+        for (Email email: emails){
 
-            JSONArray jsonArray = (JSONArray) json.parse(new FileReader(src));
+            if (email.getID().equals(emailID)){
 
-            for (Object o : (JSONArray) json.parse(new FileReader(src))) {
-
-                JSONObject jsonObject = (JSONObject) o;
-                if (emailID.equalsIgnoreCase(jsonObject.get("ID").toString())){
-
-                    String sender = (String) jsonObject.get("sender");
-                    String receiver = (String) jsonObject.get("receiver");
-                    String text = (String) jsonObject.get("text");
-                    String object = (String) jsonObject.get("object");
-                    String date = (String) jsonObject.get("date");
-
-                    email = new Email(emailID,sender,receiver,text,object,date);
-                }
-                //
-                //
+                return email;
             }
-            return email;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
-
+        return null;
     }
-
     public String getID() {
         return ID;
     }
@@ -190,26 +161,8 @@ public class Email {
     }
     public void sendEmail(String text, String argument, String... receiverEmail){
 
-        if (search(receiverEmail)){
 
-            /*
-             * if the email is present then we proceed to send it, otherwise we
-             * notify the user with a graphic error
-             * */
-        }
     }
 
-    /*
-     * @param receiver the object of the receiver
-     * @return boolean true if the receiver is found
-     * if the receiver is not found the server is going to throw an error
-     * -----------------------------------------------------------------
-     * we are going to ask the server to
-     * look in its "database"(wich is going to be a json file),
-     * if the sender is among the list of its avalible user
-     * */
-    public boolean search(String[] receiverEmail){
 
-        return true;
-    }
 }

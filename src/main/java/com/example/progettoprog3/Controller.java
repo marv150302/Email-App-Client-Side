@@ -167,7 +167,7 @@ public class Controller {
     * Object of type model,
     * used to handle the model class
     * */
-    private DataModel model;
+    public DataModel model;
 
     /*
     * These Flags are used to signal an error in fields filling
@@ -262,7 +262,7 @@ public class Controller {
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
         String selectedEmailId = this.selectedEmail.getID();
-        this.selectedEmail = this.model.email.readNewEmail(selectedEmailId);
+        this.selectedEmail = this.model.email.getEmail(selectedEmailId);
 
         this.received_email_sender.textProperty().set(this.selectedEmail.getSender());
         this.received_email_object.textProperty().set(this.selectedEmail.getObject_());

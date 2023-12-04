@@ -71,7 +71,7 @@ public class Client {
     }
     public void listenForMessage(){
 
-        new Thread(new Runnable() {
+        Thread listenMsg = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -88,7 +88,17 @@ public class Client {
                     }
                 }
             }
-        }).start();
+        });
+        listenMsg.setDaemon(true);
+        listenMsg.start();
+    }
+
+    public void closeConnection(){
+
+        try{
+
+            this.socket.close();
+        }catch (IOException e){e.printStackTrace();}
     }
 
 }
