@@ -167,7 +167,7 @@ public class Controller {
     * Object of type model,
     * used to handle the model class
     * */
-    private final DataModel model = new DataModel();
+    private DataModel model;
 
     /*
     * These Flags are used to signal an error in fields filling
@@ -181,6 +181,9 @@ public class Controller {
     * */
     public void initModel(){
 
+
+
+        this.model = new DataModel(5056);
         /*
          * Binding
          * */
@@ -188,6 +191,8 @@ public class Controller {
         this.email_object.textProperty().bindBidirectional(model.getEmail_object());
         this.email_text.textProperty().bindBidirectional(model.getEmail_text());
         this.sender_email.textProperty().bindBidirectional(model.getSender_email());
+
+
         /*
          * We set the background view and its element to blur,
          * while the login view is being shown
@@ -196,6 +201,7 @@ public class Controller {
         bb.setHeight(3);
         left_menu.setEffect(bb);
         new_email_button.setEffect(bb);
+
     }
 
     /*
@@ -249,10 +255,12 @@ public class Controller {
     * */
     @FXML
     public void readEmail(MouseEvent arg0) {
-        readEmailView.setVisible(true);
-        inbox_list.setVisible(false);
+
 
         this.selectedEmail = (Email) inbox_list.getSelectionModel().getSelectedItem();
+        if (this.selectedEmail==null) return;
+        readEmailView.setVisible(true);
+        inbox_list.setVisible(false);
         String selectedEmailId = this.selectedEmail.getID();
         this.selectedEmail = this.model.email.readNewEmail(selectedEmailId);
 
@@ -272,25 +280,12 @@ public class Controller {
     /*
     * function used to log in
     * */
-    private void tryConnectionWithServer() throws IOException {
 
-        InetAddress ip = InetAddress.getByName("localhost");
-        Socket s = new Socket(ip, 5056);
-        DataInputStream dis = new DataInputStream(s.getInputStream());
-        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-        System.out.println(dis.readUTF());
-        dos.writeUTF("exit");
-        System.out.println("Closing this connection : " + s);
-        s.close();
-        System.out.println("Connection closed");
 
-        dis.close();
-        dos.close();
-
-    }
     @FXML
-    private void onLoginButtonClick(){
+    private void onLoginButtonClick() throws IOException, ParseException {
 
+        String user_id="";
         /*
         * if the email we used to enter is written correctly then we "login"
         * */
@@ -304,13 +299,26 @@ public class Controller {
             bb.setWidth(0);
             bb.setHeight(0);
             inbox_list.setVisible(true);
-            try{
 
-                tryConnectionWithServer();
-                loadUserInbox();
-            } catch (IOException | ParseException e) {
-                throw new RuntimeException(e);
-            }
+                /*String username = this.username.textProperty().getValue();
+                switch (username){
+
+                    case "1@1.com":
+                        user_id ="1";
+                        break;
+                    case "2@2.com":
+                        user_id ="2";
+                        break;
+                    case "3@3.com":
+                        user_id = "3";
+                    break;
+                }
+                this.model.client.sendMessage("helloooooo");*/
+
+            this.model.client.sendMessage("login"+username.textProperty().getValue());
+            //System.out.println(username);
+            this.model.client.getMsgFromServer();
+            this.loadUserInbox();
         }else {
 
             /*
@@ -353,8 +361,10 @@ public class Controller {
         * a server call with the "getUserInbox" in the  USER class
         * */
         //ArrayList<Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
+
+        String user_file_path = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/"+this.username.textProperty().getValue()+".json";
         inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        inbox_list.getItems().addAll( this.model.email.getUserEmails(this.model.getSender_email().getValue()));
+        inbox_list.getItems().addAll( this.model.email.getUserEmails(user_file_path));
         tableFromColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getSender()));
         tableObjectColumn.setCellValueFactory(cellData ->

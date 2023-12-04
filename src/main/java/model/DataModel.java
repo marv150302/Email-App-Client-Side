@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,13 +18,17 @@ public class DataModel {
     private SimpleStringProperty email_text = null;
     private SimpleStringProperty email_object = null;
     public Email email = new Email();
+    public Client client;
 
-    public DataModel(){
+    public DataModel(int socketPort){
 
         this.receiver_email = new SimpleStringProperty();
         this.email_text = new SimpleStringProperty();
         this.email_object = new SimpleStringProperty();
         this.sender_email = new SimpleStringProperty();
+        this.client = new Client(socketPort, this.getSender_email().get());
+
+
     }
 
     public SimpleStringProperty getReceiver_email() {
@@ -36,7 +41,10 @@ public class DataModel {
 
     public SimpleStringProperty getSender_email() {return sender_email;}
 
+    public void setClient(Socket socket){
 
+        //this.client = new Client(socket, this.getSender_email().getValue());
+    }
 
 
 

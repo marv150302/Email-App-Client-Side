@@ -5,8 +5,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,13 +64,22 @@ public class Email {
      * which will give us back our inbox list as a JSON file
      * @return the JSON array containing our Inbox List
      * */
-    public ArrayList<Email> getUserEmails(String User) throws IOException, ParseException {
+    public ArrayList<Email> getUserEmails(String email_path) throws IOException, ParseException {
 
-        String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/MOCK_DATA.json";
+        /*
+        * We create a cache JSON file containing the user email
+        * */
+        try {
+            File user_emails = new File(email_path);
+            user_emails.createNewFile();
+        }catch (IOException e){e.printStackTrace();}
+
+        //String src = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3";
         ArrayList<Email> emails = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
 
-        for (Object o : (JSONArray) jsonParser.parse(new FileReader(src))) {
+        System.out.println("path"+email_path);
+        for (Object o : (JSONArray) jsonParser.parse(new FileReader(email_path))) {
 
             JSONObject rootObj = (JSONObject) o;
             //
@@ -86,6 +96,22 @@ public class Email {
         return emails;
     }
 
+    public void tryConnectionWithServer(String user_id)  {
+
+        try {
+            InetAddress ip = InetAddress.getByName("localhost");
+            Socket s = new Socket(ip, 5056);
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+            System.out.println(dis.readUTF());
+
+        }catch (Exception e){}
+
+
+        //dis.close();
+        //dos.close();
+
+    }
     public Email readNewEmail(String  emailID) {
 
         Email email = null;

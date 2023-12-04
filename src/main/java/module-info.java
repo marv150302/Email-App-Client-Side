@@ -5,7 +5,6 @@ module com.example.progettoprog3 {
     requires org.kordamp.bootstrapfx.core;
     requires org.json;
     requires json.simple;
-    requires EmailJAR;
 
     opens com.example.progettoprog3 to javafx.fxml;
     exports com.example.progettoprog3;
