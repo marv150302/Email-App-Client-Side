@@ -169,6 +169,9 @@ public class Controller {
     * */
     public DataModel model;
 
+    @FXML
+    private DialogPane alert_pane;
+
     /*
     * These Flags are used to signal an error in fields filling
     * */
@@ -227,6 +230,11 @@ public class Controller {
         * */
         newEmailView.setVisible(true);
     }
+    public void displayAlert(String header, String content){
+
+        this.alert_pane.setHeaderText(header);
+        this.alert_pane.setContentText(content);
+    }
 
     /*
     * Function used to handle the moment the user
@@ -234,7 +242,7 @@ public class Controller {
     * by clicking on the close button
     * */
     @FXML
-    protected void onCloseNewEmailButtonClick(){
+    public void onCloseNewEmailButtonClick(){
 
         newEmailView.setVisible(false);//hide new email view
         new_email_button.setDisable(false);//allow pressing new email button
@@ -243,7 +251,6 @@ public class Controller {
         username.setVisible(true);//show the username
         inbox_list.setVisible(true);//show the inbox list
         receiver_email.promptTextProperty().set("To:");
-
         this.receiver_email.textProperty().set("");
         this.email_object.textProperty().set("");
         this.email_text.textProperty().set("");
@@ -265,6 +272,17 @@ public class Controller {
         String selectedEmailId = this.selectedEmail.getID();
         this.selectedEmail = this.model.email.getEmail(selectedEmailId);
 
+        this.received_email_sender.textProperty().set(this.selectedEmail.getSender());
+        this.received_email_object.textProperty().set(this.selectedEmail.getObject_());
+        this.received_email_receivers.textProperty().set(this.selectedEmail.getReceiver_());
+        this.received_email_text.textProperty().set(this.selectedEmail.getText_());
+    }
+    public void readNewEmail(Email email){
+
+        System.out.println("in here");
+        readEmailView.setVisible(true);
+        inbox_list.setVisible(false);
+        this.selectedEmail = email;
         this.received_email_sender.textProperty().set(this.selectedEmail.getSender());
         this.received_email_object.textProperty().set(this.selectedEmail.getObject_());
         this.received_email_receivers.textProperty().set(this.selectedEmail.getReceiver_());
@@ -300,8 +318,7 @@ public class Controller {
             bb.setWidth(0);
             bb.setHeight(0);
             inbox_list.setVisible(true);
-
-            this.model.client.sendMessage("login",username.textProperty().getValue());
+            this.model.client.sendMessage("login");
             //System.out.println(this.model.client.getMsgFromServer());
             //System.out.println(username);
             //this.model.client.getMsgFromServer();
@@ -347,12 +364,7 @@ public class Controller {
         * we get the JSON array by making
         * a server call with the "getUserInbox" in the  USER class
         * */
-        //ArrayList<Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
-
-        //String user_file_path = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/"+this.username.textProperty().getValue()+".json";
         inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        //System.out.println("message in controller: "+ this.model.client.getMsgFromServer());
-        System.out.println("emails: " + model.client.getMsgFromServer());
         ArrayList<Email> emails = null;
         try {
 
@@ -364,7 +376,6 @@ public class Controller {
         }
         if (emails==null) return;
 
-        //System.out.println("here");
         inbox_list.getItems().addAll(emails);
         tableFromColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getSender()));
@@ -372,7 +383,6 @@ public class Controller {
                 new SimpleStringProperty(cellData.getValue().getObject_()));
         tableDateColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDate()));
-       // tableFromColumn.setCellValueFactory(Email -> new SimpleStringProperty(cellData.getValue().getPatientDTO().getPatientName())););
     }
 
     @FXML
@@ -390,9 +400,17 @@ public class Controller {
         * we are going to make
         * our HTTP request from here
         * */
-        System.out.println(this.isEmailFormFilled(model.getReceiver_email().getValue()));
+        String message = this.email_text.textProperty().getValue();
+        if (this.isEmailFormFilled(model.getReceiver_email().getValue())){
+
+            this.model.client.sendMessage("send email");
+        }
     }
 
+    public void notifySendingError(String emails){
+
+
+    }
     private boolean isEmailFormFilled(String emails ){
         /*
         * we check the email correctness

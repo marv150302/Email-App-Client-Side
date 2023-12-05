@@ -105,18 +105,6 @@ public class Email {
         return emails;
     }
 
-    public void tryConnectionWithServer(String user_id)  {
-
-        try {
-            InetAddress ip = InetAddress.getByName("localhost");
-            Socket s = new Socket(ip, 5056);
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-            System.out.println(dis.readUTF());
-
-        }catch (Exception e){}
-    }
-
     public Email getEmail(String emailID){
 
         for (Email email: emails){

@@ -2,6 +2,8 @@ package model;
 
 import com.example.progettoprog3.Controller;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
@@ -10,6 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class DataModel {
 
@@ -24,35 +27,39 @@ public class DataModel {
     public Client client;
 
     public Controller controller;
-    public DataModel(int socketPort, Controller controller){
+
+    public DataModel(int socketPort, Controller controller) {
 
         this.receiver_email = new SimpleStringProperty();
         this.email_text = new SimpleStringProperty();
         this.email_object = new SimpleStringProperty();
         this.sender_email = new SimpleStringProperty();
         this.inbox_list = new SimpleStringProperty();
-        this.client = new Client(this,socketPort, this.getSender_email().get());
+        this.client = new Client(this, socketPort, this.getSender_email().get());
         this.controller = controller;
-
-
-
-        test = "hello";
-
     }
 
     public SimpleStringProperty getReceiver_email() {
         return receiver_email;
     }
 
-    public SimpleStringProperty getEmail_text() {return email_text;}
+    public SimpleStringProperty getEmail_text() {
+        return email_text;
+    }
 
-    public SimpleStringProperty getEmail_object(){return this.email_object;}
+    public SimpleStringProperty getEmail_object() {
+        return this.email_object;
+    }
 
-    public SimpleStringProperty getSender_email() {return sender_email;}
+    public SimpleStringProperty getSender_email() {
+        return sender_email;
+    }
 
-    public SimpleStringProperty getInbox_list(){return inbox_list;}
+    public SimpleStringProperty getInbox_list() {
+        return inbox_list;
+    }
 
-    public void setClient(Socket socket){
+    public void setClient(Socket socket) {
 
         //this.client = new Client(socket, this.getSender_email().getValue());
     }
@@ -70,89 +77,95 @@ public class DataModel {
 
         public String msg_from_server;
 
-        public Client(DataModel model, int port, String username){
+        public Client(DataModel model, int port, String username) {
 
-            try{
+            try {
 
                 this.socket = new Socket("localhost", port);
                 this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 this.username = username;
                 this.model = model;
-                this.sendMessage("login",username);
+                this.sendMessage("login");
                 this.listenForMessage();
 
-            }catch (IOException e){
+            } catch (IOException e) {
 
             }
         }
-        public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
 
-            try{
+        public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
 
-                if (bufferedReader!=null){
+            try {
+
+                if (bufferedReader != null) {
 
                     bufferedReader.close();
                 }
-                if (bufferedWriter!=null){
+                if (bufferedWriter != null) {
 
                     bufferedWriter.close();
                 }
-                if (socket != null){
+                if (socket != null) {
 
                     socket.close();
                 }
-            }catch (IOException e){closeEverything(socket, bufferedReader, bufferedWriter);}
+            } catch (IOException e) {
+                closeEverything(socket, bufferedReader, bufferedWriter);
+            }
         }
 
-        public void sendMessage(String action, String msg, String... email_info){
+
+        public void sendMessage(String action) {
 
             JSONObject json = new JSONObject();
-            if (action.equalsIgnoreCase("login")){
+            switch (action) {
 
-                json.put("action", action);
-                json.put("msg", msg);
-            }else {
+                case "login": {
 
-                json.put("action", action);
-                /*
-                * the receiver email will be at the position 0 of the optional parameter
-                * (this will still be an array, in the case that we want to send the email to multiple people)
-                * */
-                org.json.JSONArray ja = new JSONArray();
-                ja.put(email_info[0]);
-                json.put("receiver", ja);
-                /*
-                *
-                * */
-                json.put("object", email_info[1]);//the object of email will be at the position 0 of the optional parameter
-                json.put("msg", msg);//the message
+                    System.out.println("loggin in");
+                    json.put("action", action);
+                    json.put("user", this.model.getSender_email().getValue());
+                    break;
+                }
+
+                case "send email": {
+
+                    //System.out.println("receiver email"  +getReceiver_email().getValue());
+                    json.put("action", action);
+                    json.put("receiver", getReceiver_email().get());
+                    json.put("object", getEmail_object().get());//the object of email will be at the position 0 of the optional parameter
+                    json.put("text", getEmail_text().get());//the message
+                    break;
+                }
             }
 
 
+            try {
 
-            try{
-
+                System.out.println(json);
                 bufferedWriter.write(json.toString());
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
 
 
-            }catch (IOException e){
+            } catch (IOException e) {
 
                 closeEverything(socket, bufferedReader, bufferedWriter);
             }
         }
 
-        private void setMsg_from_server(String msg){
+        private void setMsg_from_server(String msg) {
 
             this.msg_from_server = msg;
         }
-        public String getMsgFromServer(){
+
+        public String getMsgFromServer() {
 
             return this.msg_from_server;
         }
-        public void listenForMessage(){
+
+        public void listenForMessage() {
 
             final String[] old_message = {null};
             final JSONObject[] json = new JSONObject[1];
@@ -161,26 +174,59 @@ public class DataModel {
                 public void run() {
 
                     String msgFromServer = null;
-                    while (socket.isConnected()){
+                    while (socket.isConnected()) {
 
-                        try{
+                        try {
 
-                            //System.out.println(bufferedReader.readLine());
                             JSONParser parser = new JSONParser();
                             JSONObject message = (JSONObject) parser.parse(bufferedReader.readLine());
-                            //System.out.println(action);
-                            // action = action.get("action")
-                            switch ((String) message.get("action")){
+                            switch ((String) message.get("action")) {
 
-                                case "inbox":{
+                                case "inbox": {
                                     setMsg_from_server((String) message.get("emails"));
                                     controller.loadUserInbox();
                                     break;
                                 }
+                                case "receiving email": {
+
+                                    setMsg_from_server((String) message.get("text"));
+
+                                    String sender = (String) message.get("sender");
+                                    String receivers = (String) message.get("receiver");
+                                    String text = (String) message.get("text");
+                                    String object = (String) message.get("object");
+                                    model.controller.readNewEmail(new Email("erggere", sender, receivers, text, object, ""));
+                                    ;
+                                    break;
+                                }
+                                case "confirmed delivery":{
+
+                                    model.controller.onCloseNewEmailButtonClick();
+                                    break;
+                                }
+                                case "error in delivery":{
+
+                                    /*
+                                    * there was a problem in deliverying the email
+                                    * */
+
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Information Dialog");
+                                    alert.setHeaderText("Look, an Information Dialog");
+                                    alert.setContentText("I have a great message for you!");
+
+                                    alert.showAndWait();
+                                    String failed_emails = (String) message.get("failed-emails");
+                                    String content = "The email failed to deliver to the following addresses: " + failed_emails;
+                                    model.controller.displayAlert("Failed email delivery", content);
+                                    //model.controller.notifySendingError((String) message.get("failed-emails"));
+                                    break;
+
+                                }
 
                             }
 
-                        }catch (IOException e){
+                        } catch (IOException e) {
 
                             closeEverything(socket, bufferedReader, bufferedWriter);
                         } catch (ParseException e) {
@@ -193,12 +239,14 @@ public class DataModel {
             listenMsg.start();
         }
 
-        public void closeConnection(){
+        public void closeConnection() {
 
-            try{
+            try {
 
                 this.socket.close();
-            }catch (IOException e){e.printStackTrace();}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
