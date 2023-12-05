@@ -66,19 +66,30 @@ public class Email {
      * which will give us back our inbox list as a JSON file
      * @return the JSON array containing our Inbox List
      * */
-    public ArrayList<Email> getUserEmails(String email_path) throws IOException, ParseException {
+    public ArrayList<Email> getUserEmails(String email_json) throws IOException, ParseException {
 
+        //System.out.println("email json " + email_json);
         /*
         * We create a cache JSON file containing the user email
         * */
+        if (email_json==null) return null;
         try {
-            File user_emails = new File(email_path);
-            user_emails.createNewFile();
+            File user_emails = new File("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/emails.json");
+
+            FileWriter load_email_on_file = new FileWriter("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/emails.json");
+            load_email_on_file.write(email_json);
+            /*
+            * if the file doesn't exist we create a new one
+            * and return null(because there are no email to read)
+            *  */
+            if (user_emails.createNewFile() || user_emails.length()==0){
+                return null;
+            }
         }catch (IOException e){e.printStackTrace();}
 
         JSONParser jsonParser = new JSONParser();
 
-        for (Object o : (JSONArray) jsonParser.parse(new FileReader(email_path))) {
+        for (Object o : (JSONArray) jsonParser.parse(email_json)) {
 
             JSONObject rootObj = (JSONObject) o;
             //

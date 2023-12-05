@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="modified inbox handling">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/1@1.com.json" afterDir="false" />
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="added daemon = true for threads">
+      <change afterPath="$PROJECT_DIR$/emails.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/emails.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/1@1.com.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DataModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Email.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +86,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="Application" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.progettoprog3.Application" />
       <module name="ProgettoProg3" />
       <extension name="coverage">
@@ -122,7 +124,7 @@
       <workItem from="1701368015579" duration="514000" />
       <workItem from="1701444883712" duration="13772000" />
       <workItem from="1701511806415" duration="8713000" />
-      <workItem from="1701608104231" duration="8373000" />
+      <workItem from="1701608104231" duration="19828000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -372,7 +374,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701727085083</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="added daemon = true for threads">
+      <option name="closed" value="true" />
+      <created>1701728431558</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1701728431558</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,6 +413,7 @@
     <MESSAGE value="Moved Email class" />
     <MESSAGE value="- creazione classe client&#10;- aggiornato comportamento al login con connessione al server&#10;- ottimizzato utilizzo thread" />
     <MESSAGE value="modified inbox handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified inbox handling" />
+    <MESSAGE value="added daemon = true for threads" />
+    <option name="LAST_COMMIT_MESSAGE" value="added daemon = true for threads" />
   </component>
 </project>

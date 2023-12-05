@@ -183,7 +183,7 @@ public class Controller {
 
 
 
-        this.model = new DataModel(5056);
+        this.model = new DataModel(5056, this);
         /*
          * Binding
          * */
@@ -191,6 +191,7 @@ public class Controller {
         this.email_object.textProperty().bindBidirectional(model.getEmail_object());
         this.email_text.textProperty().bindBidirectional(model.getEmail_text());
         this.sender_email.textProperty().bindBidirectional(model.getSender_email());
+        this.inbox_list.accessibleTextProperty().bindBidirectional((model.getInbox_list()));
 
 
         /*
@@ -300,25 +301,11 @@ public class Controller {
             bb.setHeight(0);
             inbox_list.setVisible(true);
 
-                /*String username = this.username.textProperty().getValue();
-                switch (username){
-
-                    case "1@1.com":
-                        user_id ="1";
-                        break;
-                    case "2@2.com":
-                        user_id ="2";
-                        break;
-                    case "3@3.com":
-                        user_id = "3";
-                    break;
-                }
-                this.model.client.sendMessage("helloooooo");*/
-
-            this.model.client.sendMessage("login"+username.textProperty().getValue());
+            this.model.client.sendMessage("login",username.textProperty().getValue());
+            //System.out.println(this.model.client.getMsgFromServer());
             //System.out.println(username);
-            this.model.client.getMsgFromServer();
-            this.loadUserInbox();
+            //this.model.client.getMsgFromServer();
+            //this.loadUserInbox();
         }else {
 
             /*
@@ -355,23 +342,36 @@ public class Controller {
     /*
     * this function is used to load the user inbox
     * */
-    protected void loadUserInbox() throws IOException, ParseException {
+    public void loadUserInbox() throws IOException, ParseException {
         /*
         * we get the JSON array by making
         * a server call with the "getUserInbox" in the  USER class
         * */
         //ArrayList<Email> emails = this.model.email.getUserEmails(this.model.getSender_email().getValue());
 
-        String user_file_path = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/"+this.username.textProperty().getValue()+".json";
+        //String user_file_path = "/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/"+this.username.textProperty().getValue()+".json";
         inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        inbox_list.getItems().addAll( this.model.email.getUserEmails(user_file_path));
+        //System.out.println("message in controller: "+ this.model.client.getMsgFromServer());
+        System.out.println("emails: " + model.client.getMsgFromServer());
+        ArrayList<Email> emails = null;
+        try {
+
+            emails = model.email.getUserEmails(model.client.getMsgFromServer());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        if (emails==null) return;
+
+        //System.out.println("here");
+        inbox_list.getItems().addAll(emails);
         tableFromColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getSender()));
         tableObjectColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getObject_()));
         tableDateColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDate()));
-
        // tableFromColumn.setCellValueFactory(Email -> new SimpleStringProperty(cellData.getValue().getPatientDTO().getPatientName())););
     }
 
