@@ -187,17 +187,12 @@ public class DataModel {
                             }
                             case "receiving email": {
 
-                                System.out.println("receiving");
                                 JSONObject email = (JSONObject) message.get("email");
-                                System.out.println(email.toString());
-                                //setMsg_from_server((String) message.get("email"));
                                 String sender = (String) email.get("email");
                                 String receivers = (String) email.get("receiver");
                                 String text = (String) message.get("text");
                                 String object = (String) email.get("object");
-                                //System.out.println("email_ " + text);
                                 controller.updateUserInbox(email);
-                                model.controller.readNewEmail(new Email("erggere", sender, receivers, text, object, ""));
                                 break;
                             }
                             case "confirmed delivery": {

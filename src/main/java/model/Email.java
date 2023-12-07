@@ -100,38 +100,23 @@ public class Email {
             String object = (String) rootObj.get("object");
             String date = (String) rootObj.get("date");
             //
-            emails.add(new Email(ID, sender,receiver,text, object, date));
+            emails.addFirst(new Email(ID, sender,receiver,text, object, date));
         }
         return emails;
     }
 
     public Email getUserNewEmail(JSONObject email_json){
 
-        System.out.println("inside here");
-        JSONParser jsonParser = new JSONParser();
         String ID = (String) email_json.get("ID");
         String sender = (String) email_json.get("sender");
         String receiver = (String) email_json.get("receiver");
         String text = (String) email_json.get("text");
         String object = (String) email_json.get("object");
         String date = (String) email_json.get("date");
-        System.out.println(email_json);
         //
         emails.add(new Email(ID, sender,receiver,text, object, date));
         return new Email(ID, sender,receiver,text, object, date);
-        /*
-        try {
-            for (Object o : (JSONArray) jsonParser.parse(email_json)) {
 
-                JSONObject rootObj = (JSONObject) o;
-                rootObj = (JSONObject) rootObj.get("email");
-                //
-
-            }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return null;*/
     }
 
     public Email getEmail(String emailID){

@@ -407,7 +407,7 @@ public class Controller {
         Email email = model.email.getUserNewEmail(email_json);
         System.out.println(email_json);
         if (email==null)return;
-        inbox_list.getItems().add(email);
+        inbox_list.getItems().add(0,email);
         tableFromColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getSender()));
         tableObjectColumn.setCellValueFactory(cellData ->
@@ -422,7 +422,6 @@ public class Controller {
         * a server call with the "getUserInbox" in the  USER class
         * */
 
-        System.out.println("inside yhe big  one");
         ArrayList<Email> emails = null;
         try {
 
@@ -434,7 +433,7 @@ public class Controller {
         }
         if (emails==null) return;
 
-        inbox_list.getItems().addAll(emails);
+        inbox_list.getItems().addAll(0,emails);
         tableFromColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getSender()));
         tableObjectColumn.setCellValueFactory(cellData ->
