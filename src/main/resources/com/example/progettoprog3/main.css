@@ -124,6 +124,11 @@ Alert pane
 
 .text-area .content {
     -fx-padding: 10px;
-    -fx-text-fill: gray;
+    -fx-text-fill: grey;
     -fx-highlight-fill: #7ecfff;
+}
+
+#delete_email_button{
+
+    -fx-font-size: 13px;
 }

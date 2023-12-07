@@ -164,6 +164,9 @@ public class Controller {
     @FXML
     private Text username;
 
+    @FXML
+    private Button delete_email_button;
+
     /*
     * Object of type model,
     * used to handle the model class
@@ -275,6 +278,7 @@ public class Controller {
         inbox_button.setDisable(false);//allow the inbox button to work
         username.setVisible(true);//show the username
         inbox_list.setVisible(true);//show the inbox list
+
         receiver_email.promptTextProperty().set("To:");
         this.receiver_email.textProperty().set("");
         this.email_object.textProperty().set("");
@@ -290,6 +294,7 @@ public class Controller {
     public void readEmail(MouseEvent arg0) {
 
 
+        this.delete_email_button.setVisible(true);
         this.selectedEmail = (Email) inbox_list.getSelectionModel().getSelectedItem();
         if (this.selectedEmail==null) return;
         readEmailView.setVisible(true);
@@ -318,12 +323,20 @@ public class Controller {
 
         readEmailView.setVisible(false);
         inbox_list.setVisible(true);
+        this.delete_email_button.setVisible(false);
     }
 
     /*
     * function used to log in
     * */
 
+    @FXML
+    public void deleteEmail(){
+
+        Email selectedItem = inbox_list.getSelectionModel().getSelectedItem();
+        inbox_list.getItems().remove(selectedItem);
+        closeEmail();
+    }
 
     @FXML
     private void onLoginButtonClick() throws IOException, ParseException {

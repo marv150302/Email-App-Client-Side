@@ -125,6 +125,7 @@
          </Button>
       </children>
    </Pane>
+   <Button fx:id="delete_email_button" layoutX="302.0" layoutY="30.0" mnemonicParsing="false" onAction="#deleteEmail" text="Delete Selected Email" visible="false" />
 
 
 </AnchorPane>
