@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="optimized listening for message">
+    <list default="true" id="41f2ec13-b853-403a-a6cf-99c27a6ff87c" name="Changes" comment="handling failed emails">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/emails.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/progettoprog3/emails.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DataModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Email.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/View.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/progettoprog3/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +125,7 @@
       <workItem from="1701444883712" duration="13772000" />
       <workItem from="1701511806415" duration="8713000" />
       <workItem from="1701608104231" duration="26687000" />
-      <workItem from="1701776933700" duration="6133000" />
+      <workItem from="1701776933700" duration="44839000" />
     </task>
     <task id="LOCAL-00001" summary="Creazione Progetto">
       <option name="closed" value="true" />
@@ -389,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701769890758</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="handling failed emails">
+      <option name="closed" value="true" />
+      <created>1701797650850</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1701797650850</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,7 +407,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Creazione Progetto" />
     <MESSAGE value="Aggiornamento classe Email.java" />
     <MESSAGE value="Aggiornamento della main view(aggiunta icona)" />
     <MESSAGE value="Aggiornamento della main view(aggiunte view)" />
@@ -422,6 +431,17 @@
     <MESSAGE value="modified inbox handling" />
     <MESSAGE value="added daemon = true for threads" />
     <MESSAGE value="optimized listening for message" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimized listening for message" />
+    <MESSAGE value="handling failed emails" />
+    <option name="LAST_COMMIT_MESSAGE" value="handling failed emails" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="8" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

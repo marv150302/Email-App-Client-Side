@@ -73,7 +73,7 @@ public class Email {
         * We create a cache JSON file containing the user email
         * */
         if (email_json==null) return null;
-        try {
+        /*try {
             File user_emails = new File("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/emails.json");
 
             FileWriter load_email_on_file = new FileWriter("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/emails.json");
@@ -81,11 +81,11 @@ public class Email {
             /*
             * if the file doesn't exist we create a new one
             * and return null(because there are no email to read)
-            *  */
+            *
             if (user_emails.createNewFile() || user_emails.length()==0){
                 return null;
             }
-        }catch (IOException e){e.printStackTrace();}
+        }catch (IOException e){e.printStackTrace();}*/
 
         JSONParser jsonParser = new JSONParser();
 
@@ -103,6 +103,35 @@ public class Email {
             emails.add(new Email(ID, sender,receiver,text, object, date));
         }
         return emails;
+    }
+
+    public Email getUserNewEmail(JSONObject email_json){
+
+        System.out.println("inside here");
+        JSONParser jsonParser = new JSONParser();
+        String ID = (String) email_json.get("ID");
+        String sender = (String) email_json.get("sender");
+        String receiver = (String) email_json.get("receiver");
+        String text = (String) email_json.get("text");
+        String object = (String) email_json.get("object");
+        String date = (String) email_json.get("date");
+        System.out.println(email_json);
+        //
+        emails.add(new Email(ID, sender,receiver,text, object, date));
+        return new Email(ID, sender,receiver,text, object, date);
+        /*
+        try {
+            for (Object o : (JSONArray) jsonParser.parse(email_json)) {
+
+                JSONObject rootObj = (JSONObject) o;
+                rootObj = (JSONObject) rootObj.get("email");
+                //
+
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return null;*/
     }
 
     public Email getEmail(String emailID){

@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.*;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 /*
@@ -169,9 +170,15 @@ public class Controller {
     * */
     public DataModel model;
 
+    /*
+    * Alert DialogPane
+    * */
     @FXML
-    private DialogPane alert_pane;
-
+    private Pane alert_pane;
+    @FXML
+    private TextArea alert_text;
+    @FXML
+    private Button close_alert_button;
     /*
     * These Flags are used to signal an error in fields filling
     * */
@@ -184,9 +191,7 @@ public class Controller {
     * */
     public void initModel(){
 
-
-
-        this.model = new DataModel(5056, this);
+        this.model = new DataModel(this);
         /*
          * Binding
          * */
@@ -195,6 +200,7 @@ public class Controller {
         this.email_text.textProperty().bindBidirectional(model.getEmail_text());
         this.sender_email.textProperty().bindBidirectional(model.getSender_email());
         this.inbox_list.accessibleTextProperty().bindBidirectional((model.getInbox_list()));
+        inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);//for preventing the user from resizing the inbox view
 
 
         /*
@@ -230,10 +236,29 @@ public class Controller {
         * */
         newEmailView.setVisible(true);
     }
-    public void displayAlert(String header, String content){
+    public void displayAlert(String content){
 
-        this.alert_pane.setHeaderText(header);
-        this.alert_pane.setContentText(content);
+        //this.alert_pane.setHeaderText(header);
+        //this.alert_pane.setContentText(content);
+        this.alert_pane.setVisible(true);
+        this.alert_text.setText(content);
+        bb.setWidth(3);
+        bb.setHeight(3);
+        inbox_list.setEffect(bb);
+        left_menu.setEffect(bb);
+        newEmailView.setEffect(bb);
+
+    }
+    public void addRemoveErrorClass(){
+
+    }
+    @FXML
+    public void setCloseAlert(){
+
+        this.alert_pane.setVisible(false);
+        inbox_list.setEffect(null);
+        left_menu.setEffect(null);
+        newEmailView.setEffect(null);
     }
 
     /*
@@ -279,7 +304,6 @@ public class Controller {
     }
     public void readNewEmail(Email email){
 
-        System.out.println("in here");
         readEmailView.setVisible(true);
         inbox_list.setVisible(false);
         this.selectedEmail = email;
@@ -318,7 +342,10 @@ public class Controller {
             bb.setWidth(0);
             bb.setHeight(0);
             inbox_list.setVisible(true);
-            this.model.client.sendMessage("login");
+            this.model.setClient(username.textProperty().getValue());
+            this.model.client.setUsername( username.textProperty().getValue());
+            //this.model.client.sendMessage("login");
+
             //System.out.println(this.model.client.getMsgFromServer());
             //System.out.println(username);
             //this.model.client.getMsgFromServer();
@@ -359,16 +386,34 @@ public class Controller {
     /*
     * this function is used to load the user inbox
     * */
-    public void loadUserInbox() throws IOException, ParseException {
+
+
+    public void updateUserInbox(JSONObject email_json){
+
+        //System.out.println(email_json);
+        Email email = model.email.getUserNewEmail(email_json);
+        System.out.println(email_json);
+        if (email==null)return;
+        inbox_list.getItems().add(email);
+        tableFromColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getSender()));
+        tableObjectColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getObject_()));
+        tableDateColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDate()));
+
+    }
+    public void loadUserInbox(String email_json) throws IOException, ParseException {
         /*
         * we get the JSON array by making
         * a server call with the "getUserInbox" in the  USER class
         * */
-        inbox_list.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        System.out.println("inside yhe big  one");
         ArrayList<Email> emails = null;
         try {
 
-            emails = model.email.getUserEmails(model.client.getMsgFromServer());
+            emails = model.email.getUserEmails(email_json);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -386,7 +431,7 @@ public class Controller {
     }
 
     @FXML
-    protected void onSendEmailButtonClick(){
+    protected void onSendEmailButtonClick() throws IOException {
 
         //ArrayList<String> receivers_email = new ArrayList<>();
         //.replaceAll("\\s+","")
@@ -407,10 +452,6 @@ public class Controller {
         }
     }
 
-    public void notifySendingError(String emails){
-
-
-    }
     private boolean isEmailFormFilled(String emails ){
         /*
         * we check the email correctness
@@ -488,7 +529,6 @@ public class Controller {
 
         this.email_object.textProperty().set(this.selectedEmail.getObject_());
         this.email_text.textProperty().set(this.selectedEmail.getText_() + "\n\n\n ------------------------------------------------------------------------- \n\n");
-        //this.model.email.reply(this.selectedEmail);
     }
 
 
