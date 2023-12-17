@@ -5,9 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
-import java.net.InetAddress;
-import java.net.Socket;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,8 +29,10 @@ public class Email {
 
     ArrayList<Email> emails = new ArrayList<>();
 
-    public Email(){}
-    public Email(String ID, String sender, String receiver, String text, String object, String date){
+    public Email() {
+    }
+
+    public Email(String ID, String sender, String receiver, String text, String object, String date) {
 
         //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         //LocalDateTime now = LocalDateTime.now();
@@ -45,8 +45,10 @@ public class Email {
         this.ID = ID;
 
     }
-    public static boolean isCorrectEmailFormat(String emails){
 
+    public static boolean isCorrectEmailFormat(String emails) {
+
+        if (emails==null) return false;
 
         if (emails.isEmpty()) return false;
         String[] email_list = emails.split(" ");
@@ -70,9 +72,9 @@ public class Email {
 
         //System.out.println("email json " + email_json);
         /*
-        * We create a cache JSON file containing the user email
-        * */
-        if (email_json==null) return null;
+         * We create a cache JSON file containing the user email
+         * */
+        if (email_json == null) return null;
         /*try {
             File user_emails = new File("/Users/marvel/Programming/Uni/ProgettoProg3/src/main/java/com/example/progettoprog3/emails.json");
 
@@ -100,36 +102,46 @@ public class Email {
             String object = (String) rootObj.get("object");
             String date = (String) rootObj.get("date");
             //
-            emails.addFirst(new Email(ID, sender,receiver,text, object, date));
+            emails.addFirst(new Email(ID, sender, receiver, text, object, date));
         }
         return emails;
     }
 
-    public Email getUserNewEmail(JSONObject email_json){
+    public ArrayList<Email> getUserNewEmail(JSONArray email_json) {
 
-        String ID = (String) email_json.get("ID");
-        String sender = (String) email_json.get("sender");
-        String receiver = (String) email_json.get("receiver");
-        String text = (String) email_json.get("text");
-        String object = (String) email_json.get("object");
-        String date = (String) email_json.get("date");
+        ArrayList<Email> email_list = new ArrayList<>();
+        for (Object emails : email_json) {
+            JSONObject email = (JSONObject) emails;
+
+            String ID = (String) email.get("ID");
+            String sender = (String) email.get("sender");
+            String receiver = (String) email.get("receiver");
+            String text = (String) email.get("text");
+            String object = (String) email.get("object");
+            String date = (String) email.get("date");
+
+            this.emails.add(new Email(ID, sender, receiver, text, object, date));
+            email_list.add(new Email(ID, sender, receiver, text, object, date));
+        }
+
         //
-        emails.add(new Email(ID, sender,receiver,text, object, date));
-        return new Email(ID, sender,receiver,text, object, date);
+
+        return email_list;
 
     }
 
-    public Email getEmail(String emailID){
+    public Email getEmail(String emailID) {
 
-        for (Email email: emails){
+        for (Email email : emails) {
 
-            if (email.getID().equals(emailID)){
+            if (email.getID().equals(emailID)) {
 
                 return email;
             }
         }
         return null;
     }
+
     public String getID() {
         return ID;
     }
@@ -168,14 +180,9 @@ public class Email {
      * and we will notify the sender that there was an error
      * */
 
-    public void reply(Email email, String reply){
+    public void reply(Email email, String reply) {
 
         String text = email.getText_() + reply;
     }
-    public void sendEmail(String text, String argument, String... receiverEmail){
-
-
-    }
-
 
 }

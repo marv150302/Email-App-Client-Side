@@ -92,7 +92,7 @@
          <TextArea fx:id="received_email_text" editable="false" layoutX="14.0" layoutY="163.0" prefHeight="232.0" prefWidth="531.0" wrapText="true" />
          <TextField fx:id="received_email_receivers" editable="false" layoutX="73.0" layoutY="85.0" prefHeight="26.0" prefWidth="464.0" />
          <TextField fx:id="received_email_object" editable="false" layoutX="73.0" layoutY="118.0" prefHeight="26.0" prefWidth="464.0" />
-         <Button fx:id="reply_all" layoutX="402.0" layoutY="15.0" mnemonicParsing="false" text="Reply All" />
+         <Button fx:id="reply_all"  onAction="#onReplyButtonClick" layoutX="402.0" layoutY="15.0" mnemonicParsing="false" text="Reply All" />
          <Button fx:id="reply" layoutX="331.0" layoutY="15.0" mnemonicParsing="false" onAction="#onReplyButtonClick" text="Reply" />
          <Button fx:id="forward" layoutX="482.0" layoutY="15.0" mnemonicParsing="false" onAction="#onReplyButtonClick" text="Forward" />
          <TextField fx:id="received_email_sender" layoutX="73.0" layoutY="51.0" prefHeight="26.0" prefWidth="464.0" />

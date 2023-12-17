@@ -1,5 +1,6 @@
 package com.example.progettoprog3;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,20 +8,16 @@ import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import model.*;
-import org.json.simple.JSONObject;
+import model.DataModel;
+import model.Email;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /*
 * This is the controller class used to handle our views elements
@@ -91,7 +88,7 @@ public class Controller {
     * a listView used to display the user's inbox
     * */
     @FXML
-    private TableView<Email> inbox_list;
+    public TableView<Email> inbox_list;
     @FXML
     private TableColumn<Email, String> tableFromColumn;
     @FXML
@@ -185,7 +182,7 @@ public class Controller {
     /*
     * These Flags are used to signal an error in fields filling
     * */
-    private boolean sender_email_error_flag = false,receiver_email_error_flag = false, email_object_error_flag = false, email_text_error_flag =false;//flags used to check for errors in the fields
+    private boolean sender_email_error_flag = false;
     private Email selectedEmail = null;
 
     /*
@@ -217,6 +214,13 @@ public class Controller {
 
     }
 
+    public boolean isInboxEmpty(){
+
+       // ObservableList<> items = inbox_list.getItems();
+
+       return Bindings.isEmpty(inbox_list.getItems()).get();
+
+    }
     /*
     * Function used to handle
     * the moment the user wants to send a new email
@@ -357,12 +361,7 @@ public class Controller {
             inbox_list.setVisible(true);
             this.model.setClient(username.textProperty().getValue());
             this.model.client.setUsername( username.textProperty().getValue());
-            //this.model.client.sendMessage("login");
 
-            //System.out.println(this.model.client.getMsgFromServer());
-            //System.out.println(username);
-            //this.model.client.getMsgFromServer();
-            //this.loadUserInbox();
         }else {
 
             /*
@@ -390,32 +389,9 @@ public class Controller {
             sender_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
         }
     }
-    /*
-    * InitModel
-    * Used to make binding with elements of our view
-    * */
 
 
-    /*
-    * this function is used to load the user inbox
-    * */
 
-
-    public void updateUserInbox(JSONObject email_json){
-
-        //System.out.println(email_json);
-        Email email = model.email.getUserNewEmail(email_json);
-        System.out.println(email_json);
-        if (email==null)return;
-        inbox_list.getItems().add(0,email);
-        tableFromColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getSender()));
-        tableObjectColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getObject_()));
-        tableDateColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getDate()));
-
-    }
     public void loadUserInbox(String email_json) throws IOException, ParseException {
         /*
         * we get the JSON array by making
@@ -440,6 +416,22 @@ public class Controller {
                 new SimpleStringProperty(cellData.getValue().getObject_()));
         tableDateColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getDate()));
+    }
+
+    public void updateUserInbox(JSONArray email_json){
+
+        //System.out.println(email_json);
+        ArrayList<Email> emails = model.email.getUserNewEmail(email_json);
+        System.out.println(email_json);
+        if (emails==null)return;
+        inbox_list.getItems().addAll(0,emails);
+        tableFromColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getSender()));
+        tableObjectColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getObject_()));
+        tableDateColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDate()));
+
     }
 
     @FXML
@@ -468,45 +460,58 @@ public class Controller {
         /*
         * we check the email correctness
         * */
-        if (!Email.isCorrectEmailFormat(emails) && !this.receiver_email_error_flag){
+        boolean receiver_email_error_flag = false;
+        if (!Email.isCorrectEmailFormat(emails)){
 
-            this.receiver_email_error_flag = true;//we flag it as an error
-            receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
+            receiver_email_error_flag = true;//we flag it as an error
+            if (!receiver_email.getStyleClass().contains("text-field-area-error")){
+                receiver_email.getStyleClass().add("text-field-area-error");//we add the error text border to the text field
+            }
 
-        }else if (Email.isCorrectEmailFormat(emails) && this.receiver_email_error_flag){
 
-            this.receiver_email_error_flag = false;
+        }else{
+
+            receiver_email_error_flag = false;
             receiver_email.getStyleClass().remove("text-field-area-error");//we remove the error red border to the text field
         }
 
         /*
         * we check the email object corrected
         * */
-        if(this.isEmptyEmailObject() && !this.email_object_error_flag){
+        //System.out.println("object ckass " + );
+        boolean email_object_error_flag = false;
+        if(this.isEmptyEmailObject()){
+            email_object_error_flag = true;
+            if (!email_object.getStyleClass().contains("text-field-area-error")){
+                email_object.getStyleClass().add("text-field-area-error");
+            }
 
-            this.email_object_error_flag = true;
-            email_object.getStyleClass().add("text-field-area-error");
 
-        }else if (!this.isEmptyEmailObject() && this.email_object_error_flag){
+        }else{
 
-            this.email_object_error_flag = false;
+            email_object_error_flag = false;
             email_object.getStyleClass().remove("text-field-area-error");
         }
 
         /*
         * we check the email text(empty or not)
         * */
-        if (this.isEmptyEmailText() && !this.email_text_error_flag){
+        //flags used to check for errors in the fields
+        boolean email_text_error_flag = false;
+        if (this.isEmptyEmailText() ){
 
-            this.email_text_error_flag = true;
-            email_text.getStyleClass().add("text-field-area-error");
-        }else if (!this.isEmptyEmailText() && this.email_text_error_flag){
+            email_text_error_flag = true;
+            if (!email_text.getStyleClass().contains("text-field-area-error")){
 
-            this.email_text_error_flag = false;
+                email_text.getStyleClass().add("text-field-area-error");
+            }
+
+        }else{
+            email_text_error_flag = false;
             email_text.getStyleClass().remove("text-field-area-error");
         }
 
-        return !(receiver_email_error_flag && email_object_error_flag && email_text_error_flag);
+        return !(receiver_email_error_flag || email_object_error_flag || email_text_error_flag);
         //return checkEmail() && this.checkEmailText() && this.checkEmailObject();
     }
     /*
@@ -528,13 +533,22 @@ public class Controller {
     @FXML
     private void onReplyButtonClick(ActionEvent event){
 
+        this.delete_email_button.setVisible(false);
         Button source = (Button) event.getSource();
         if (source.getId().equalsIgnoreCase("reply")){
 
             this.receiver_email.textProperty().set(this.selectedEmail.getSender());
+            //System.out.println(this.selectedEmail.getReceiver_());
+
         }else if (source.getId().equalsIgnoreCase("forward")){
 
             this.receiver_email.promptTextProperty().set("Insert Email or Emails to forward to:");
+        }
+        else if (source.getId().equalsIgnoreCase("reply_all")){
+
+            String receivers = this.selectedEmail.getSender() + " " + this.selectedEmail.getReceiver_().replace(this.username.getText(), "");
+            this.receiver_email.textProperty().set(receivers);
+            //System.out.println("receivers without me: " + );
         }
         this.onNewEmailButtonClick();
 
