@@ -144,6 +144,10 @@ public class DataModel {
                     message_to_send.put("text", getEmail_text().get());//the message
                     message_to_send.put("sender", this.username);
                     this.model.controller.onCloseNewEmailButtonClick();
+                    if (socket==null){
+
+                        controller.displayAlert("The Server is not avalible \n\n .Your email will be sent again when it will be back \n\n Do not close the app");
+                    }
                     break;
                 }
 
